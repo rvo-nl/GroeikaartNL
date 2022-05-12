@@ -1,0 +1,39 @@
+
+.bar.total rect {
+  fill: steelblue;
+}
+
+.bar.positive rect {
+  fill: darkolivegreen;
+}
+.bar.negative rect {
+  fill: crimson;
+}
+
+.bar line.connector {
+  stroke: grey;
+  stroke-dasharray: 3;
+}
+
+.bar text {
+  fill: white;
+  font: 12px sans-serif;
+  text-anchor: middle;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+*{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,Consolas,monaco,monospace;width:960px;margin:0 auto;font-size:14px}text{fill:#454545}.bar.total rect{fill:#44a4f6}.bar.positive rect{fill:#82bb25}.bar.negative rect{fill:#fd3753}.bar text{font-weight:700;text-anchor:middle}.axis text{font-size:11px}.axis line,.axis path{fill:none;stroke:#eee;shape-rendering:crispEdges}.gridline{stroke:#ccc;stroke-width:1}
+
+.bar line.connector {
+  stroke: grey;
+  stroke-dasharray: 3;
+}

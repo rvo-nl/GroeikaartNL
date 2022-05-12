@@ -1,0 +1,465 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Garamond, Georgia, serif;
+  margin: 0;
+  padding: 0;
+}
+
+#csvFile {
+  color: silver
+}
+
+#uploadfile {
+  color: silver;
+  font-family: Garamond, Georgia, serif;
+  margin: 0;
+  padding: 0;
+}
+
+#map {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+#slidercontainer {
+  position: absolute;
+  right: 20px;
+  top: 5px;
+  z-index: 999;
+  color: silver;
+  width: 230px;
+  opacity: 0.8;
+  border-radius: 7px;
+}
+
+#jaar {
+  background-color: whitesmoke;
+  opacity: 0.8;
+  color: black;
+  border-radius: 7px;
+}
+
+#filtercontainer {
+  position: absolute;
+  left: 60px;
+  top: 10px;
+  z-index: 999;
+  opacity: 0.8;
+}
+
+#uploadfile {
+  border-radius: 7px;
+}
+
+#clear {
+  display: inline-block;
+  position: relative;
+  right: 0px;
+  z-index: 999;
+  top: 4px;
+  font-size: 14pt;
+  color: red;
+}
+
+input.search-query {
+  display: inline-block;
+  width: 80%;
+  right: 0px;
+  padding-left: 24px;
+}
+
+.search-box {
+  display: inline-block;
+  position: relative;
+  right: 0px;
+  font-size: 10pt !important;
+  padding-top: 3px !important;
+  padding-bottom: 3px !important;
+}
+
+#search-results {
+  display: inline-block;
+  position: relative;
+  top: 4px;
+  right: 0px;
+  color: black;
+  background-color: whitesmoke;
+  opacity: 0.8;
+  border-radius: 7px;
+}
+
+div.fixed {
+  position: fixed;
+  bottom: 0px;
+  /*	left: 40px;
+	width: 300px;
+	height: 80%;
+	max-height: 80%;
+	overflow: auto;
+	border: 3px solid #73AD21;
+*/
+}
+
+#legendLayers {
+  position: absolute;
+  top: 70px;
+  left: 50px;
+  width: 300px;
+  height: 80%;
+  max-height: 80%;
+  overflow: auto;
+  border: 3px solid #73AD21;
+  padding: 10px 10px 10px 10px;
+  font: 14px/16px Arial, Helvetica, sans-serif;
+  background: white;
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  z-index: 999
+}
+
+/*.info {
+	padding: 10px 10px 10px 10px;
+	font: 14px/16px Arial, Helvetica, sans-serif;
+	background: white;
+	background: rgba(255,255,255,0.8);
+	box-shadow: 0 0 15px rgba(0,0,0,0.2);
+	border-radius: 10px;
+	z-index: 1000;
+}
+.legend {
+	text-align: left;
+	line-height: 20px;
+	color: #555;
+}
+.legend i {
+	width: 14px;
+	height: 14px;
+	float: left;
+	margin-right: 8px;
+	opacity: 0.7;
+	border-radius:7px;
+}*/
+
+#hover {
+  display: none;
+  position: relative;
+  top: -25px;
+  z-index: -1;
+}
+
+#logo:hover {
+  opacity: .7;
+}
+
+#logo:hover+#hover {
+  display: block;
+}
+
+#logo {
+  position: fixed;
+  top: 0px;
+  left: 48%;
+  width: 35px;
+  text-align: center;
+  vertical-align: middle;
+  z-index: 1000;
+  background: white;
+  opacity: 0.90;
+  border-radius: 5px;
+  border: 0px solid rgba(0, 0, 0, 0.1);
+}
+
+.leaflet-credits-control {
+  //~     margin-right:0 !important;
+  //~     margin-bottom:0 !important;
+  height: 39px;
+  /* defined in the JavaScript code */
+  padding-right: 50px;
+  /* defined in the JavaScript code */
+  background-image: none;
+  /* defined in the JavaScript code */
+  background-repeat: no-repeat;
+  background-position: 100% 0;
+  background-color: white;
+  opacity: 0.90;
+  border-radius: 5px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.leaflet-credits-control a {
+  font-size: 8pt;
+  color: #333333 !important;
+  text-decoration: none;
+  text-align: right;
+  display: none;
+  /* becomes visible on mouse hover, see creditsControl */
+}
+
+.leaflet-credits-control a.leaflet-credits-showlink {
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  line-height: 15px;
+}
+
+.leaflet-control-layers-group-name {
+  font-weight: bold;
+  color: black;
+  margin-bottom: .5em;
+  /*	overflow: auto;*/
+}
+
+
+.leaflet-control-layers-group {
+  margin-left: 5px;
+  margin-bottom: .2em;
+
+}
+
+.leaflet-control-layers {
+  overflow-x: auto;
+  opacity: 0.7;
+}
+
+.leaflet-control-layers-scrollbar {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 200px;
+  padding-right: 5px;
+}
+
+.leaflet-container .leaflet-control-mouseposition {
+  background-color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 5px #bbb;
+  padding: 0 5px;
+  margin: 0;
+  color: #333;
+  font: 11px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+}
+
+/*
+.leaflet-layerstree-header-name {
+  font-weight: bold;
+  font-size: 15px;
+}
+
+*/
+
+
+#wkt {
+  z-index: 10000;
+  filter: alpha(opacity=70);
+  /*older IE*/
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+  /* IE */
+  -moz-opacity: .70;
+  /*older Mozilla*/
+  -khtml-opacity: 0.7;
+  /*older Safari*/
+  opacity: 0.7;
+  /*supported by current Mozilla, Safari, and Opera*/
+  background-color: #000000;
+  position: fixed;
+  bottom: 0px;
+  left: 400px;
+  width: 30%;
+  height: 10%;
+  color: #FFFFFF;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 7px;
+  overflow: auto;
+}
+
+.leaflet-control-layers .leaflet-retina .leaflet-control-layers-toggle {
+  background-image: url(./src/css/legal-icon-10043-52.png);
+  background-size: 26px 26px;
+}
+
+.leaflet-control-layers-toggle {
+  background-image: url(legal-icon-10043-26.png);
+  width: 36px;
+  height: 36px;
+}
+
+.leaflet-control-layers:nth-child(2) .leaflet-retina .leaflet-control-layers-toggle {
+  background-image: url(../png/electricity-icon-png-4560-52.png);
+}
+
+.leaflet-control-layers:nth-child(2) .leaflet-control-layers-toggle {
+  background-image: url(../png/electricity-icon-png-4560-26.png);
+}
+
+.leaflet-control-layers:nth-child(3) .leaflet-retina .leaflet-control-layers-toggle {
+  background-image: url(../png/heating-icon-8422-52.png);
+}
+
+.leaflet-control-layers:nth-child(3) .leaflet-control-layers-toggle {
+  background-image: url(../png/heating-icon-8422-26.png);
+}
+
+.leaflet-control-layers:nth-child(4) .leaflet-retina .leaflet-control-layers-toggle {
+  background-image: url(../png/oil-and-gas-icon-12215-52.png);
+}
+
+.leaflet-control-layers:nth-child(4) .leaflet-control-layers-toggle {
+  background-image: url(../png/oil-and-gas-icon-12215-26.png);
+}
+
+
+/* CES Sankeys start */
+
+#fullpagePopup {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: 20000;
+  overflow-y: scroll;
+}
+
+.node rect {
+  /* cursor: move; */
+  fill-opacity: 0.9;
+  shape-rendering: crispEdges;
+
+}
+
+.node text {
+  pointer-events: none;
+  /* text-shadow: 0 1px 0 #fff; */
+}
+
+/* .link {
+  fill: none;
+  stroke: #000;
+  stroke-opacity: .2;
+} */
+
+.link:hover {
+  stroke-opacity: .5;
+}
+
+@font-face {
+  font-family: "RijksoverheidSans";
+  src: url("fonts/ROsanswebtextregular.eot?") format("embedded-opentype"),
+    url("fonts/ROsanswebtextregular.woff") format("opentype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "RijksoverheidSans";
+  src: url("fonts/ROsanswebtextitalic.eot?") format("embedded-opentype"),
+    url("fonts/ROsanswebtextitalic.woff") format("opentype");
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "RijksoverheidSans";
+  src: url("fonts/ROsanswebtextbold.eot?") format("embedded-opentype"),
+    url("fonts/ROsanswebtextbold.woff") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "RijksoverheidSerif";
+  src: url("fonts/ROserifwebregular.eot?") format("embedded-opentype"),
+    url("fonts/ROserifwebregular.woff") format("opentype");
+  font-style: normal;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "RijksoverheidSerif";
+  src: url("fonts/ROserifwebitalic.eot?") format("embedded-opentype"),
+    url("fonts/ROserifwebitalic.woff") format("opentype");
+  font-style: italic;
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: "RijksoverheidSerif";
+  src: url("fonts/ROserifwebbold.eot?") format("embedded-opentype"),
+    url("fonts/ROserifwebbold.woff") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+.bar.total rect {
+  fill: #2C6697;
+}
+
+.bar.positive rect {
+  fill: #527C63;
+}
+
+.bar.negative rect {
+  fill: #78433B;
+}
+
+.bar.overlay rect {}
+
+.bar line.connector {
+  stroke: grey;
+  /* stroke-dasharray: 0; */
+  stroke-width: 1;
+}
+
+
+
+.bar text {
+  text-anchor: middle;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 60px;
+  height: 16px;
+  padding: 2px;
+  font: 15px sans-serif;
+  background: lightgrey;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+}
+
+.bubble {
+  font-weight: bold;
+}
+
+.ellipse {
+  fill: none;
+  stroke: black;
+  stroke-width: 2;
+}
+
+
+/* CES Sankeys stop */

@@ -1,0 +1,35 @@
+<svg width="300" height="700" stroke-opacity="0.8" font-family="Segoe UI" font-size="13px" xmlns="http://www.w3.org/2000/svg"
+  xmlns:xlink="http://www.w3.org/1999/xlink">
+   <style>
+    .small { font: italic 13px 'Segoe UI'; }
+    .heavy { font: bold 15px 'Segoe UI'; }
+    /* Note that the color of the text is set with the    *
+     * fill property, the color property is for HTML only */
+  </style>
+<text x="10" y="20" transform="translate(8,4)" class="heavy">Status Leiding (MIEK+CES+IP+TvW)</text>
+<line x1="10" dy1="40" x2="40" y2="40"  stroke="black" stroke-dasharray="10, 3,2,3" /><text x="40" y="40" transform="translate(8,4)">Bestaand</text>
+<line x1="10" y1="60" x2="40" y2="60"  stroke="black" stroke-dasharray="8,3" /><text x="40" y="60" transform="translate(8,4)">Gepland</text>
+<line x1="10" y1="80" x2="40" y2="80"  stroke="black" stroke-dasharray="3"/><text x="40" y="80" transform="translate(8,4)">Noodzakelijk</text>
+<line x1="10" y1="100" x2="40" y2="100"  stroke="black" stroke-dasharray="10, 3,2,3"/><text x="40" y="100" transform="translate(8,4)">Projected</text>
+<text x="10" y="140" transform="translate(8,4)" class="heavy">Type Leiding (MIEK+CES+IP+TvW)</text>
+<line x1="10" y1="160" x2="40" y2="160"  stroke="red" /><text x="40" y="160" transform="translate(8,4)">Warmte</text>
+<line x1="10" y1="180" x2="40" y2="180"   stroke="yellow" /><text x="40" y="180" transform="translate(8,4)">Elektriciteit</text>
+<line x1="10" y1="200" x2="40" y2="200"  stroke="cyan" /><text x="40" y="200" transform="translate(8,4)">Waterstof</text>
+<line x1="10" y1="220" x2="40" y2="220"  stroke="orange" /><text x="40" y="220" transform="translate(8,4)">Zuurstof</text>
+<line x1="10" y1="240" x2="40" y2="240"  stroke="blue" /><text x="40" y="240" transform="translate(8,4)">Water</text>
+<line x1="10" y1="260" x2="40" y2="260"  stroke="silver" /><text x="40" y="260" transform="translate(8,4)">Waterstof in bestaande Gas-leiding</text>
+<line x1="10" y1="280" x2="40" y2="280"  stroke="lime" /><text x="40" y="280" transform="translate(8,4)">CO2</text>
+<text x="10" y="310" transform="translate(8,4)" class="heavy">Conversie (CES+IP)</text>
+<rect x="10" y="325" width="25" height="20" stroke="magenta" fill="magenta"/><text x="40" y="335" transform="translate(8,4)">Hello Elektrolyser (CES+ISPT)</text>
+<text x="10" y="385" transform="translate(8,4)" class="heavy">Productie (RES)</text>
+<rect x="10" y="400" width="25" height="20" stroke="lime" fill="lime"/><text x="40" y="410" transform="translate(8,4)">Hello WindTurbinePark</text><rect x="10" y="425" width="25" height="20" stroke="orange" fill="orange"/><text x="40" y="435" transform="translate(8,4)">Hello ZonneVeld</text><rect x="10" y="450" width="25" height="20" stroke="deepskyblue" fill="deepskyblue"/><text x="40" y="460" transform="translate(8,4)">Hello Wind+Zon</text>
+<text x="10" y="495" transform="translate(8,4)" class="heavy">Consumptie</text>
+<rect x="10" y="510" width="25" height="20" stroke="red" fill="red"/><text x="40" y="520" transform="translate(8,4)">Woonkernen</text>
+<rect x="10" y="535" width="25" height="20" stroke="purple" fill="purple"/><text x="40" y="545" transform="translate(8,4)">Woonkernen met warmtenet</text>
+<rect x="10" y="560" width="25" height="20" stroke="yellow" fill="yellow"/><text x="40" y="570" transform="translate(8,4)">Kassen</text>
+<circle cx="22" cy="595" r="5" fill="red"/><text x="40" y="595" transform="translate(8,4)">Chemie (20 Mton)</text>
+<circle cx="22" cy="620" r="5" fill="blue"/><text x="40" y="620" transform="translate(8,4)">Metaal (10 Mton)</text>
+<circle cx="22" cy="645" r="5" fill="yellow"/><text x="40" y="645" transform="translate(8,4)">AVI (10 Mton)</text>
+<circle cx="22" cy="670" r="5" fill="brown"/><text x="40" y="670" transform="translate(8,4)">Raffinage (10 Mton)</text>
+<circle cx="22" cy="695" r="5" fill="green"/><text x="40" y="695" transform="translate(8,4)">Papier,Voeding,Overig (6 Mton)</text>
+</svg>
