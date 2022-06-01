@@ -40,7 +40,7 @@ d3.select('#buttonsvg').append('text')
   .style('pointer-events','none')
   .text('OK')
 
-d3.select('#toelichtingSplashScreen').append('img').attr('id', 'example1').attr('src', '../src/gif/kaartlagencsvtoelichting.gif').attr('width','750px').style('position','absolute').style('top','5px');
+d3.select('#toelichtingSplashScreen').append('img').attr('id', 'example1').attr('src', '/src/gif/kaartlagencsvtoelichting.gif').attr('width','750px').style('position','absolute').style('top','5px');
 
 d3.select('#buttonCloseToelichting')
 .on('mouseover',function(){d3.select('#closeButtonText').attr('fill','white'); d3.select(this).attr('fill','#265A8B')})
