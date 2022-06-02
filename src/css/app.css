@@ -1,4 +1,4 @@
-* {
+ {
   box-sizing: border-box;
 }
 
@@ -281,12 +281,12 @@ div.fixed {
 }
 
 .leaflet-control-layers .leaflet-retina .leaflet-control-layers-toggle {
-  background-image: url(./src/css/legal-icon-10043-52.png);
+  background-image: url(../png/legal-icon-10043-52.png);
   background-size: 26px 26px;
 }
 
 .leaflet-control-layers-toggle {
-  background-image: url(legal-icon-10043-26.png);
+  background-image: url(../png/legal-icon-10043-26.png);
   width: 36px;
   height: 36px;
 }
