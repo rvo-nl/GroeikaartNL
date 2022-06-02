@@ -60,6 +60,8 @@
   <script src="./src/js/papaparse.js"></script>
   <script src="./src/js/d3.js"></script>
 
+
+
   <!--script src="./src/js/geojson-vt.js.download"></script>
 <script src="./src/js/leaflet-geojson-vt.js.download"></script-->
   <script src="./src/js/l.ellipse.min.js"></script>
@@ -424,16 +426,16 @@
 
     // wms
     //var wind = L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?',jsonAdd({layers: 'SDE_elektra',CQL_FILTER: "SubSoort LIKE '%wind%'"}, options));
- //   var wind2 = L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?', jsonAdd({ layers: 'Demo SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'" }, jsonAdd(extractRasterStyleOptions({ attribution: '&copy; WarmteAtlas' }), defaultOptions)));
+    //   var wind2 = L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?', jsonAdd({ layers: 'Demo SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'" }, jsonAdd(extractRasterStyleOptions({ attribution: '&copy; WarmteAtlas' }), defaultOptions)));
     //	layerControl[2].addOverlay(L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?',jsonAdd({layers: 'SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'"},jsonAdd(extractRasterStyleOptions({attribution: '&copy; WarmteAtlas'}),defaultOptions))), 'Demolaag WMS SDE projecten RVO', 'Productie');
-  //  layerControl[2].addOverlay(wind2, 'Demolaag WMS SDE wind projecten RVO', 'Productie');
+    //  layerControl[2].addOverlay(wind2, 'Demolaag WMS SDE wind projecten RVO', 'Productie');
 
     // geojson import from server
     //layerControl[2].addOverlay(L.geoJson.ajax('data/Windturbines.json', {style: {fillColor: 'yellow', fillOpacity:0.7 ,color:'yellow', weight:2 }, onEachFeature: tabularPopup2, pointToLayer: function(feature, latlng) {return L.marker(latlng, {icon: windIcon})}}), "Demo GeoJson Windmolens " , "Productie");
     //	"Windmolens GeoJson": L.geoJson.ajax('data/Windturbines.json', {style: {fillColor: 'yellow', fillOpacity:0.7 ,color:'yellow', weight:2 }, onEachFeature: tabularPopup2, pointToLayer: function(feature, latlng) {return L.marker(latlng, {icon: windIcon})}}),
 
     // geojson from <script src="./data/TerreingrenzenBkl.js">
- //   layerControl[0].addOverlay(L.geoJson(TerreingrenzenBkl, { style: { fillColor: 'yellow', fillOpacity: 0.7, color: 'yellow', weight: 2 }, onEachFeature: tabularPopup2, pointToLayer: function (feature, latlng) { return L.marker(latlng) } }), "Demo GeoJson TerreingrenzenBkl ", "Consumenten");
+    //   layerControl[0].addOverlay(L.geoJson(TerreingrenzenBkl, { style: { fillColor: 'yellow', fillOpacity: 0.7, color: 'yellow', weight: 2 }, onEachFeature: tabularPopup2, pointToLayer: function (feature, latlng) { return L.marker(latlng) } }), "Demo GeoJson TerreingrenzenBkl ", "Consumenten");
 
     // gaat fout layerControl[0].addOverlay(L.geoJson(Installaties_puntBkl, {style: {fillColor: 'yellow', fillOpacity:0.7 ,color:'yellow', weight:2 }, onEachFeature: tabularPopup2, pointToLayer: function(feature, latlng) {return L.marker(latlng)}}), "Demo GeoJson Installaties " , "Consumenten");
 
@@ -653,11 +655,7 @@
 
   </script>
 
-
-  <script>
-
-  </script>
-
+  <script src="./src/js/toelichting/kaartlagencsvPopup.js"></script>
 
 </body>
 
