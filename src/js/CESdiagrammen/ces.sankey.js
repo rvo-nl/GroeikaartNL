@@ -550,7 +550,7 @@ function tekenCESDiagrammen(config){
     .style('border','2px solid black')
     .style('padding','5px')
     .append('svg')
-      .style('width',200).style('height',60)
+      .attr('width',200).attr('height',60)
       .attr('id','buttonsvg')
     d3.select('#buttonsvg').append('text')
       .style('font-family', 'RijksoverheidSans').style('font-size', 20+'px').style('font-weight',800)
