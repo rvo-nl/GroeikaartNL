@@ -180,7 +180,7 @@ function drawBackdrop(){
     function drawWaterfallGraphElementsCO2balans(){
         let spos = startposCO2balans;
         
-        let co2BalansItems = [  {title: 'Energie efficiÃ«ntie', scope: 1},
+        let co2BalansItems = [  {title: 'Energie efficiëntie', scope: 1},
                                 {title: 'CCS Blauwe Waterstof', scope: 1},
                                 {title: 'CCS Overige', scope: 1},
                                 {title: 'Circulair', scope: 1},
@@ -550,7 +550,7 @@ function tekenCESDiagrammen(config){
     .style('border','2px solid black')
     .style('padding','5px')
     .append('svg')
-      .style('width',200).style('height',60)
+      .attr('width',200).attr('height',60)
       .attr('id','buttonsvg')
     d3.select('#buttonsvg').append('text')
       .style('font-family', 'RijksoverheidSans').style('font-size', 20+'px').style('font-weight',800)
@@ -785,7 +785,7 @@ function drawSankey(config){
         // add the link titles
         link.append("title")
             .text(function(d) {
-                return d.source.name + " â†’ " + 
+                return d.source.name + " ? " + 
                 d.target.name + "\n" + format(d.value); });
 
         for (i=0;i<graph.nodes.length;i++){
@@ -829,7 +829,7 @@ function drawSankey(config){
                         .attr('font-size','12px')
                         .attr('font-weight',600)
                         .attr('fill','red')
-                        .text( '['+feedback.length+'] â€¢ ' + Math.round(missingValue) + ' ' + unit)
+                        .text( '['+feedback.length+'] • ' + Math.round(missingValue) + ' ' + unit)
                         .call(function(){flashObject('missingValue_'+ graph.nodes[i].index)})
                         
                 
@@ -856,7 +856,7 @@ function drawSankey(config){
                         .attr('x',graph.nodes[i].x0 - nodeWidth).attr('y',refCoordinate + (markerHeight/2) + 6)
                         .attr('font-size','12px').attr('font-weight',600).attr("text-anchor", "end")
                         .attr('fill','red')            
-                        .text( Math.round(missingValue) + ' ' + unit + ' â€¢ ['+feedback.length+']')
+                        .text( Math.round(missingValue) + ' ' + unit + ' • ['+feedback.length+']')
                         .call(function(){flashObject('missingValue_'+ graph.nodes[i].index)})
                 }
             }

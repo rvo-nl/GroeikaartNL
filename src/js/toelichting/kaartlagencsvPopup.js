@@ -18,7 +18,7 @@ d3.select('body').append('div')
   .style('position','absolute')
   .style('top','400px')
   .style('left','20px')
-  .style('width',800).style('height',60)
+  .attr('width',1200).attr('height',60)
   .attr('id','buttonsvg')
   .attr('pointer-events', 'all')
 

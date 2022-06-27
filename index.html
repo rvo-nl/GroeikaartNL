@@ -69,6 +69,9 @@
   <!--https://github.com/GreenInfo-Network/Leaflet-Control-Credits-->
   <script src="./src/js/controllMouseposition.js"></script>
   <script src="./src/js/leaflet.wktcsv.js"></script>
+  <script src="./src/js/leaflet.spin.min.js"></script>
+  <script src="./src/js/spin.min.js"></script>
+
 
   <script src="./data/industrie.js"></script>
   <!--script src="./data/BuisleidingenRRGS.js"></script-->
@@ -80,14 +83,14 @@
 
   <!-- js data link  -->
   <!--<script src="./data/AardwarmteVergunningen.js"></script> -->
-  <!--script src="./data/Inrichtingen_puntBkl.js"></script-->
-  <!--script src="./data/Installaties_puntBkl.js"></script>
+  <!--script src="./data/Inrichtingen_puntBkl.js"></script>
+  <script src="./data/Installaties_puntBkl.js"></script>
   <script src="./data/Kegelligplaatsen_punt.js"></script>
   <script src="./data/TerreingrenzenBkl.js"></script>
   <script src="./data/Windturbines.js"></script>
   <script src="./data/GemeenteEnergieInfo2019.js"></script>
   <script src="./data/HS_Tennet.js"></script>
-	<script src="./data/BuisleidingenRRGS.js"></script-->
+<script src="./data/BuisleidingenRRGS.js"></script-->
   <script src="./data/LCP2020.js"></script>
 
 
@@ -96,7 +99,7 @@
   <script src="./src/js/CESdiagrammen/ces.sankey.js"></script>
 
   <style>
-    // app.css
+    /* app.css*/
     #displaybox {
       z-index: 10000;
       filter: alpha(opacity=80);
@@ -183,12 +186,13 @@
 
 
 
-    function tabularPopup2(feature, layer) {
-      var popup = '<div class="popup-content"><table class="table table-striped table-bordered table-condensed">';
+    function tabularPopup2(feature, layer, ToolTip) {
+      var tabular = '<div class="popup-content"><table class="table table-striped table-bordered table-condensed">';
       for (var key in feature.properties) {
         // var title = this.getPropertyTitle(key);
         var value = feature.properties[key];
-        if (key.toUpperCase().indexOf('NAAM') >= 0) { //search for 'NAAM' string inside key attribute string
+        (ToolTip) ? TT = toUpperCase(ToolTip) : TT = 'NAAM'; //ToolTip defined in laagKenmerken
+        if ((key.toUpperCase().indexOf(TT) >= 0)){ //search for 'NAAM' string inside key attribute string
           layer.bindTooltip(value, { sticky: true }).bringToFront();
         }
         if (key == 'wkt' || key == 'color' || key == 'radius') { // doe niets
@@ -198,12 +202,12 @@
           //         value = '<a target="_blank" href="' + value + '">'+ value + '</a>';
           //      }
           if (value) {
-            popup += '<tr><th>' + key + '</th><td>' + value + '</td></tr>';
+            tabular += '<tr><th>' + key + '</th><td>' + value + '</td></tr>';
           }
         }
       };
       var layerWeight = layer.options.weight;
-      layer.bindPopup(popup);
+      layer.bindPopup(tabular);
       layer.on({
         'mousemove': function (e) {
           e.target.setStyle({
@@ -253,29 +257,10 @@
       "openTopo": L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { attribution: 'Map data: &copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)', maxZoom: 18 }),
       "luchtfoto actueel": L.tileLayer('https://service.pdok.nl/hwh/luchtfotorgb/wmts/v1_0/Actueel_ortho25/EPSG:3857/{z}/{x}/{y}.jpeg', { attribution: '&copy; <a href="https://geoforum.nl/t/aanroepen-van-wmts-basemaps-via-leaflet-in-r/2380">PDOK</a> contributors', minZoom: 6, maxZoom: 18 }),
       "darkCarto": L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://cartodb.com/basemaps/">CartoDB</a> contributors', maxZoom: 18 }).addTo(map)
-    };
+//         "darkCarto": L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}.png', { attribution: '&copy; <a href="http://cartodb.com/basemaps/">CartoDB</a> contributors', maxZoom: 18 })
+    
+	 };
 
-//https://geodata.nationaalgeoregister.nl/tiles/service/wmts/2018_ortho25/EPSG:28992/{z}/{x}/{y}.kpeg
-
- //*dd 23maart 2022 nog invoegen
-//~ var legend = L.control({position: 'bottomleft'});
-
-//~ legend.onAdd = function (map) {
-    //~ var div = L.DomUtil.create('div', 'info legend'),
-        //~ colors = ['Red','Blue','Yellow','Maroon','Green'],
-        //~ grades = ['Chemie (~20 Mton)','Metaal (~10 Mton) ','AVI (~10 Mton)','Raffinage(~10 Mton) ', 'Papier,Voeding, Overig (~6 Mton)'],
-        //~ labels = [];
-    //~ // loop through our density intervals and generate a label with a colored square for each interval
-    //~ for (var i = 0; i < grades.length; i++) {
- //~ //      console.log(grades[i]+' '+ colors[i] );
-        //~ div.innerHTML +=
-            //~ '<i style="background:' + colors[i]  + '"></i> ' +
-            //~ grades[i] + '<br>';
-    //~ }
-    //~ return div;
-//~ };
-
-//~ legend.addTo(map);
 
   </script>
 
@@ -305,7 +290,7 @@
       } else {
         y.style.visibility = 'hidden';
       }
-    }, 'import csv(wkt)-file').addTo(map);
+    }, 'import (dummy)pijplijnProjecten.csv file').addTo(map);
 
     //Add edit button
     L.easyButton('fa-edit fa-lg', function (btn, map) {
@@ -330,14 +315,16 @@
 
     map.on('pm:create', function (e) {
       var shape = JSON.stringify(e.layer.toGeoJSON());
+      console.log('geojson> ' + shape );
       var wkt = new Wkt.Wkt();
       wkt.read(shape);
-      document.getElementById('wkt').value = wkt.write();
+      document.getElementById('wkt').value = 'wkt> '+ wkt.write() + '\n' + 'geojson> ' + shape ;
       e.layer.on('pm:edit', ({ layer }) => {
         var shape = JSON.stringify(layer.toGeoJSON());
+        console.log('geojson> ' + shape );
         var wkt = new Wkt.Wkt();
         wkt.read(shape);
-        document.getElementById('wkt').value = wkt.write();
+        document.getElementById('wkt').value = 'wkt> '+ wkt.write() + '\n' + 'geojson> ' + shape ;
       });
     });
 
@@ -358,10 +345,6 @@
 
     //Add overzicht menu met kaartlagen en vul de kaartlagen met data
     var OverlayOptions = {
-      // Make the "Landmarks" group exclusive (use radio inputs)
-      //  exclusiveGroups: ["Landmarks"],
-      // Show a checkbox next to non-exclusive group labels for toggling all
-      //  groupCheckboxes: true,
       position: 'bottomright',
       collapsed: true,
     };
@@ -391,7 +374,7 @@
 
     };
 
-    //https://rvo.tailormap.nl/geoserver/WarmteAtlas/wfs?service=WFS&request=GetFeature&outputFormat=application/json&srsName=EPSG:4326&typeName=SDE_warmte
+    //check https://rvo.tailormap.nl/geoserver/WarmteAtlas/wfs?service=WFS&request=GetFeature&outputFormat=application/json&srsName=EPSG:4326&typeName=SDE_warmte
 
     var CESclusters = L.layerGroup().addTo(map);//var ClusterRotterdamMoerdijk = L.ellipse({center:[51.91502, 4.214638],semiMinor:20000, semiMajor:5000, tilt:20, color: "green"}).bindPopup("sankey bij klik").bindTooltip("Cluster Rotterdam-Moerdijk").addTo(CESclusters);
     // var ClusterRotterdamMoerdijk = L.ellipse([51.91502, 4.214638], [20000, 5000], 20).bindPopup("sankey bij klik").bindTooltip("Cluster Rotterdam-Moerdijk").addTo(CESclusters);
@@ -406,23 +389,6 @@
     // var ClusterEmmen = L.ellipse([52.765, 6.914], [1700, 1000], 80).bindPopup("sankey bij klik").bindTooltip("Cluster NN-Emmen").addTo(CESclusters);
     var ClusterNZKG = L.ellipse([52.43, 4.77], [17000, 5000], 20).on('click', function () { tekenCESDiagrammen({ datapath: 'https://raw.githubusercontent.com/rvo-nl/GroeikaartNL/main/data/CES_dummydata.csv', targetDiv: 'fullpagePopup', clusterSelectie: 'Noordzee-Kanaal-Gebied' }) }).bindTooltip("Cluster NoordZeeKanaalGebied").addTo(CESclusters);
 
-
-    /*
-        var CESclusters = L.layerGroup().addTo(map);//var ClusterRotterdamMoerdijk = L.ellipse({center:[51.91502, 4.214638],semiMinor:20000, semiMajor:5000, tilt:20, color: "green"}).bindPopup("sankey bij klik").bindTooltip("Cluster Rotterdam-Moerdijk").addTo(CESclusters);
-        // var ClusterRotterdamMoerdijk = L.ellipse([51.91502, 4.214638], [20000, 5000], 20).bindPopup("sankey bij klik").bindTooltip("Cluster Rotterdam-Moerdijk").addTo(CESclusters);
-    
-        var ClusterRotterdamMoerdijk = L.ellipse([51.91502, 4.214638], [20000, 5000], 20).on('click', function () { tekenCESDiagrammen({ datapath: 'data/CES_dummydata.csv', targetDiv: 'fullpagePopup', clusterSelectie: 'Rotterdam' }) }).bindTooltip("Cluster Rotterdam-Moerdijk").addTo(CESclusters);
-    
-    
-        var ClusterChemelot = L.ellipse([50.97, 5.8], [2300, 1300], 105).on('click', function () { tekenCESDiagrammen({ datapath: 'data/CES_dummydata.csv', targetDiv: 'fullpagePopup', clusterSelectie: 'Chemelot' }) }).bindTooltip("Cluster Chemelot").addTo(CESclusters);
-        //var ClusterZeeland  = L.ellipse([51.3, 3.77], [30000, 10000], 80).addTo(CESclusters);
-        var ClusterZeelandNL = L.ellipse([51.36, 3.76], [17000, 5000], 70).on('click', function () { tekenCESDiagrammen({ datapath: 'data/CES_dummydata.csv', targetDiv: 'fullpagePopup', clusterSelectie: 'Zeeland' }) }).bindTooltip("Cluster Zeeland-NL)").addTo(CESclusters);
-        var ClusterNoordNederland = L.ellipse([53.39, 6.89], [14000, 5000], 60).on('click', function () { tekenCESDiagrammen({ datapath: 'data/CES_dummydata.csv', targetDiv: 'fullpagePopup', clusterSelectie: 'Noord-Nederland' }) }).bindTooltip("Cluster NN-EemsHaven-Delfzijl").addTo(CESclusters);
-        // var ClusterEmmen = L.ellipse([52.765, 6.914], [1700, 1000], 80).bindPopup("sankey bij klik").bindTooltip("Cluster NN-Emmen").addTo(CESclusters);
-        var ClusterNZKG = L.ellipse([52.43, 4.77], [17000, 5000], 20).on('click', function () { tekenCESDiagrammen({ datapath: 'data/CES_dummydata.csv', targetDiv: 'fullpagePopup', clusterSelectie: 'Noordzee-Kanaal-Gebied' }) }).bindTooltip("Cluster NoordZeeKanaalGebied").addTo(CESclusters);
-    
-    */
-
     var layerControl = [];
     layerControl[0] = L.control.groupedLayers({}, {}, OverlayOptions).addTo(map); //gas
     layerControl[1] = L.control.groupedLayers({}, {}, OverlayOptions).addTo(map); //heat
@@ -435,7 +401,7 @@
 
     //Add some default example layers with configuration syntax
     //	var defaultOptions = {transparent: true, format: 'image/png', crs: L.CRS.EPSG4326 , attribution: '&copy; RijksOverheid', minZoom: 6, maxZoom: 18, opacity: 0.7, tolerance:100};
-    var defaultOptions = { transparent: true, format: 'image/png', crs: L.CRS.EPSG4326, attribution: '&copy; RijksOverheid', minZoom: 6, maxZoom: 18, opacity: 0.7, weight: 2 };
+    var defaultOptions = { transparent: true, format: 'image/png', crs: L.CRS.EPSG4326, attribution: '&copy; RijksOverheid', minZoom: 6, maxZoom: 18, opacity: 0.7, weight: 2, fillOpacity: 0.9};
     //define special icons
     var stookIcon = new L.Icon({ iconUrl: 'src/svg/flame_orange.svg', iconRetinaUrl: 'src/flame_orange.svg', iconSize: [40, 40], popupAnchor: [1, -20] });
     var windIcon = new L.Icon({ iconUrl: 'src/svg/wind-yellow.svg', iconSize: [20, 20], popupAnchor: [1, -20] });
@@ -443,17 +409,17 @@
     //	L.geoJson.vt(AardwarmteVergunningen, defaultOptions).addTo(map);
 
     // wfs
-    layerControl[2].addOverlay(L.geoJson.ajax("https://geoservices.rijkswaterstaat.nl/apps/geoserver/windenergiegebieden/ows?" + WFSparams + 'vergunde_windparken', { style: { fillColor: 'yellow', fillOpacity: 0.2, color: 'yellow', weight: 2 }, onEachFeature: tabularPopup2 }), 'Demo WFS Vergunde WindParken Offshore', 'Productie');
+    layerControl[2].addOverlay(L.geoJson.ajax("https://geoservices.rijkswaterstaat.nl/apps/geoserver/windenergiegebieden/ows?" + WFSparams + 'vergunde_windparken', { style: { fillColor: 'yellow', fillOpacity: 0.2, color: 'yellow', weight: 2 }, onEachFeature: tabularPopup2 }), 'Vergunde WindParken Offshore', 'Producenten');
     //	"Vergunde Windparken Offshore WFS": L.geoJson.ajax("https://geoservices.rijkswaterstaat.nl/apps/geoserver/windenergiegebieden/ows?"+WFSparams+'vergunde_windparken', {style: {fillColor: 'yellow', fillOpacity:0.2 ,color:'yellow', weight:2}, onEachFeature: tabularPopup2}),
 
     // wms
     //var wind = L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?',jsonAdd({layers: 'SDE_elektra',CQL_FILTER: "SubSoort LIKE '%wind%'"}, options));
     //   var wind2 = L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?', jsonAdd({ layers: 'Demo SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'" }, jsonAdd(extractRasterStyleOptions({ attribution: '&copy; WarmteAtlas' }), defaultOptions)));
-    //	layerControl[2].addOverlay(L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?',jsonAdd({layers: 'SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'"},jsonAdd(extractRasterStyleOptions({attribution: '&copy; WarmteAtlas'}),defaultOptions))), 'Demolaag WMS SDE projecten RVO', 'Productie');
+    //	layerControl[2].addOverlay(L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?',jsonAdd({layers: 'SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'"},jsonAdd(extractRasterStyleOptions({attribution: '&copy; WarmteAtlas'}),defaultOptions))), 'Demolaag WMS SDE projecten RVO', 'Producenten');
     //  layerControl[2].addOverlay(wind2, 'Demolaag WMS SDE wind projecten RVO', 'Productie');
 
     // geojson import from server
-    //layerControl[2].addOverlay(L.geoJson.ajax('data/Windturbines.json', {style: {fillColor: 'yellow', fillOpacity:0.7 ,color:'yellow', weight:2 }, onEachFeature: tabularPopup2, pointToLayer: function(feature, latlng) {return L.marker(latlng, {icon: windIcon})}}), "Demo GeoJson Windmolens " , "Productie");
+    //layerControl[2].addOverlay(L.geoJson.ajax('data/Windturbines.json', {style: {fillColor: 'yellow', fillOpacity:0.7 ,color:'yellow', weight:2 }, onEachFeature: tabularPopup2, pointToLayer: function(feature, latlng) {return L.marker(latlng, {icon: windIcon})}}), "Demo GeoJson Windmolens " , "Producenten");
     //	"Windmolens GeoJson": L.geoJson.ajax('data/Windturbines.json', {style: {fillColor: 'yellow', fillOpacity:0.7 ,color:'yellow', weight:2 }, onEachFeature: tabularPopup2, pointToLayer: function(feature, latlng) {return L.marker(latlng, {icon: windIcon})}}),
 
     // geojson from <script src="./data/TerreingrenzenBkl.js">
@@ -468,7 +434,7 @@
       //filter: function(feature, layer) {return (eval(geojsonCQLFilterTest))},//werkt
       onEachFeature: tabularPopup2,
       pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { color: feature.properties.color, radius: (feature.properties.radius * 2), fillOpacity: 0.8 }) },
-    }).bindTooltip(function (layer) { return String(layer.feature.properties.Popup) }), "Grootste Industrie ", "Consumenten");
+    }) .bindTooltip(function (layer) { return String(layer.feature.properties.Popup) }), "Grootste Industrie ", "Consumenten");
 
 
     //~    layerControl[3].addOverlay(L.geoJson(Installaties_puntBkl, {
@@ -495,24 +461,22 @@
     //~ 		pointToLayer: function (feature, latlng) {return L.circleMarker(latlng,  {color: 'yellow', radius: 2, fillOpacity: 0.8}).bindTooltip(String(feature.properties.vermogen_kw_rivm), {permanent: false, opacity: 0.9}).openTooltip()},
     //~ }),"Windmolens", "Producenten");
 
+    // layerControl[3].addOverlay(L.geoJson(BuisleidingenRRGS, {
+    //  // style: {weight: 2 , color: 'red'},
+    //   style: function(feature, layer) {return { weight: feature.properties.uitw_diam_inch/10, color: 'red'}},
+    //      filter: function(feature, layer) {return (feature.properties.hoofdtype == "Aardgas") ;},
+    //   //filter: function(feature, layer) {return (eval(geojsonCQLFilterTest))},
+    //   onEachFeature: tabularPopup2,
+    // }), "Aardgas", "Netten");
 
-    //geocsv
+    //test
+    geojsonLayer = L.geoJson();
+
+
+    //drag & drop Kaartlagen.csv 
     var laagKenmerken = [];
+    var droppedLayerContainer = [];
 
-
-    //~ var laagKenmerken = [];
-    //~ laagKenmerken[0]= {fig: 'circle', color: 'red', dash:{}, fillColor: 'green', legendeNaam: 'laag0', legendeGroep: 'bron'};
-    //~ laagKenmerken[1]= {fig: 'rect', color: 'yellow', dash:{}, fillColor: 'green', legendeNaam: 'laag1', legendeGroep: 'netten'};
-    //~ laagKenmerken[2]= {fig: 'rect', color: 'blue', dash:{}, fillColor: 'green', legendeNaam: 'laag2', legendeGroep: 'consument'};
-    //~ laagKenmerken[3]= {fig: 'circle', color: 'purple', dash:{}, fillColor: 'green', legendeNaam: 'laag3', legendeGroep: 'netten'};
-    //~ laagKenmerken[4]= {fig: 'rect', color: 'orange', dash:{}, fillColor: 'green', legendeNaam: 'laag4', legendeGroep: 'netten'};
-    //~ laagKenmerken[5]= {fig: 'line', color: 'blue', dash:"5,5", fillColor: 'green', legendeNaam: 'laag line', legendeGroep: 'netten'};
-
-
-    document.addEventListener("dragover", function (event) {
-      event.preventDefault();
-      console.log('Attempting to drop...')
-    });
 
     // read the dragged over csv file. The csv file contains  all the layer url locations and the filter and option parameters
     // with following format with required columns (other option columns can be added)  with delimiter pipe '|' :
@@ -520,63 +484,62 @@
     // names of optional columns: subsoort|energiedragerNetten|status|cqlFilter|attributeID|legendaShape|legendaItems|fillColor|color|eenheid|weight|opacity|fillOpacity|dash|zoomMin|zoomMax|jaarSlider|tableParams|attribution|metadata
     // format dataType column:  'gpkg', 'geocsv', 'geojson','wfs', 'wms'
 
-    laagKenmerken[0] = { "PK_UID": "", "laagBeschikbaarheid": "x", "legendeNaam": "AVI", "legendeGroep": "Consumenten", "subsoort": "bedrijven", "energiedragerNetten": "regios", "dataType": "varGeojson", "status": "balans", "urlOWS": "", "url": "", "laagNaam": "industrie", "cqlFilter": "color == 'yellow'", "popup": "feature.properties.Popup", "attributeMap": "", "fig": "circle", "legendaItems": "", "fillColor": "yellow", "color": "white", "eenheid": "", "weight": "1", "opacity": "", "fillOpacity": "0.3", "dash": "", "radius": "radius*2", "zoomMin": "", "zoomMax": "", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "" };
-
-    //laagKenmerken[0]= {"PK_UID":"","laagBeschikbaarheid":"x","legendeNaam":"GemeenteEnergieInfo","legendeGroep":"Gemeente","subsoort":"Gemeente","energiedragerNetten":"regios","dataType":"varGeojson","status":"balans","urlOWS":"","url":"","laagNaam":"GemeenteEnergieInfo2019","cqlFilter":"","popup":"feature.properties.GM_NAAM","attributeMap":"","fig":"rect","legendaItems":"","fillColor":"grey","color":"white","eenheid":"","weight":"1","opacity":"","fillOpacity":"0.3","dash":"","radius":"","zoomMin":"","zoomMax":"","jaarSlider":"","tableParams":"","attribution":"WarmteAtlasRVO,CBS","metadata":"","bronNaam":"","bronActor":"","verantwoordelijkeActor":"","juridischeGrondslag":"","contactpersoon":""};
-
-    //laagKenmerken[1]= {"PK_UID":"","laagBeschikbaarheid":"x","legendeNaam":"AVI","legendeGroep":"Consumenten","subsoort":"bedrijven","energiedragerNetten":"regios","dataType":"varGeojson","status":"balans","urlOWS":"","url":"","laagNaam":"industrie","cqlFilter":"color == 'yellow'","popup":"feature.properties.Popup","attributeMap":"","fig":"circle","legendaItems":"","fillColor":"yellow","color":"white","eenheid":"","weight":"1","opacity":"","fillOpacity":"0.3","dash":"","radius":"radius*2","zoomMin":"","zoomMax":"","jaarSlider":"","tableParams":"","attribution":"","metadata":"","bronNaam":"","bronActor":"","verantwoordelijkeActor":"","juridischeGrondslag":"","contactpersoon":""};
-
-    /*
-        laagKenmerken[3] = { "PK_UID": "", "laagBeschikbaarheid": "", "legendeNaam": "Ligging Hoofd Gasleidingen WMS filt", "legendeGroep": "Netten", "subsoort": "HogedrukGasLeidingen", "energiedragerNetten": "gassen/olien", "dataType": "wms", "status": "operationeel", "urlOWS": "", "url": "http://servicespub.risicokaart.nl/rk_services_pub/services/WMS-risicokaart?", "bronNaam": "Risicokaart", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "", "laagNaam": "trns_buisleidingen", "cqlFilter": "BUIS_NAAM_BEHEERDER LIKE '%gas%'", "attributeID": "", "fig": "line", "legendaItems": "", "fillColor": "blue", "color": "blue", "eenheid": "", "weight": "", "opacity": "", "fillOpacity": "", "dash": "", "zoomMin": "", "zoomMax": "", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "" };
-        laagKenmerken[4] = { "PK_UID": "58", "laagBeschikbaarheid": "x", "legendeNaam": "Ligging HoogspanningsNet op zee", "legendeGroep": "Netten", "subsoort": "Hoogspanningsnet", "energiedragerNetten": "elektra", "dataType": "wfs", "status": "geinstalleerd", "urlOWS": "https://geoservices.rijkswaterstaat.nl/apps/geoserver/kabels_en_leidingen_noordzee/ows?", "url": "https://geoservices.rijkswaterstaat.nl/apps/geoserver/kabels_en_leidingen_noordzee/ows?", "bronNaam": "?", "bronActor": "RWS", "verantwoordelijkeActor": "RWS", "juridischeGrondslag": "?", "contactpersoon": "", "laagNaam": "electra_kabels_noordzee", "cqlFilter": "'1=1'", "attributeID": "", "fig": "line", "legendaItems": "", "fillColor": "yellow", "color": "yellow", "eenheid": "", "weight": "", "opacity": "", "fillOpacity": "", "dash": "", "zoomMin": "8", "zoomMax": "12", "jaarSlider": "", "tableParams": "", "attribution": "RijksOverheid", "metadata": "" };
-        laagKenmerken[5] = { "PK_UID": "", "laagBeschikbaarheid": "", "legendeNaam": "Ligging Hoofd Gasleidingen geojson filt", "legendeGroep": "Netten", "subsoort": "HogedrukGasLeidingen", "energiedragerNetten": "gassen/olien", "dataType": "geojson", "status": "operationeel", "urlOWS": "data/BuisleidingenRRGS.json", "url": "data/BuisleidingenRRGS.json", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "", "laagNaam": "", "cqlFilter": "stofnaam like '%aardgas%'", "attributeID": "", "fig": "line", "legendaItems": "", "fillColor": "red", "color": "red", "eenheid": "", "weight": "", "opacity": "", "fillOpacity": "", "dash": "", "zoomMin": "", "zoomMax": "", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "" };
-        laagKenmerken[6] = { "PK_UID": "48", "laagBeschikbaarheid": "x", "legendeNaam": "Ligging Stook Installaties", "legendeGroep": "Producenten", "subsoort": "ETSbedrijven", "energiedragerNetten": "gassen/olien", "dataType": "wms", "status": "operationeel", "urlOWS": "https://rvo.b3p.nl/geoserver/WarmteAtlas/ows?", "url": "https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?", "bronNaam": "WarmteAtlas", "bronActor": "RVO", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "", "laagNaam": "GroteStookInstallaties", "cqlFilter": "'1=1'", "attributeID": "", "fig": "circle", "legendaItems": "", "fillColor": "purple", "color": "purple", "eenheid": "", "weight": "", "opacity": "", "fillOpacity": "", "dash": "", "zoomMin": "8", "zoomMax": "12", "jaarSlider": "", "tableParams": "", "attribution": "RijksOverheid", "metadata": "" };
-        laagKenmerken[7] = { "PK_UID": "3", "laagBeschikbaarheid": "x", "legendeNaam": "Duurzame elektriciteit", "legendeGroep": "Producenten", "subsoort": "Productie", "energiedragerNetten": "elektra", "dataType": "wms", "status": "subsidieBeschikking", "urlOWS": "https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?", "url": "https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "", "laagNaam": "SDE_elektra", "cqlFilter": "'1=1'", "attributeID": "", "fig": "circle", "legendaItems": "", "fillColor": "green", "color": "green", "eenheid": "", "weight": "2", "opacity": "", "fillOpacity": "", "dash": "", "zoomMin": "8", "zoomMax": "12", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "" };
-         laagKenmerken[8] = { "PK_UID": "2", "laagBeschikbaarheid": "x", "legendeNaam": "Inrichtingen", "legendeGroep": "Consumenten", "subsoort": "Bedrijven", "energiedragerNetten": "gassen/olien", "dataType": "wfs", "status": "Vergund", "urlOWS": "https://rvo.b3p.nl/geoserver/GroeikaartNL/wfs?", "url": "https://rvo.tailormap.nl/geoserver/GroeikaartNL/wfs?", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "", "laagNaam": "ProductionFacility", "cqlFilter": "'1=1'", "attributeID": "", "fig": "circle", "legendaItems": "", "fillColor": "red", "color": "red", "eenheid": "", "weight": "2", "opacity": "", "fillOpacity": "", "dash": "", "zoomMin": "8", "zoomMax": "12", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "" };
-    */
-
+// example
+    laagKenmerken[0] = {"laagBeschikbaarheid": "x", "legendeNaam": "AVI", "legendeGroep": "Consumenten", "subsoort": "bedrijven", "energiedragerNetten": "regios", "dataType": "varGeojson", "status": "balans", "urlOWS": "", "url": "", "laagNaam": "industrie", "cqlFilter": "color == 'yellow'", "popup": "feature.properties.Popup", "attributeMap": "", "fig": "circle", "legendaItems": "", "fillColor": "yellow", "color": "white", "eenheid": "", "weight": "1", "opacity": "", "fillOpacity": "0.3", "dash": "", "radius": "radius*2", "zoomMin": "", "zoomMax": "", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "" };
+    laagKenmerken[1] = {"laagBeschikbaarheid":"x","legendeNaam":"Subsidie AardWarmte","legendeGroep":"Producenten","subsoort":"Warmte","energiedragerNetten":"warmte","dataType":"wfs","status":"subsidieBeschikking","url":"https://rvo.tailormap.nl/geoserver/WarmteAtlas/wfs?","laagNaam":"SDE_warmte","cqlFilter":"SubSoort LIKE 'aardWarmte'","popup":"","attributeMap":"","fig":"circle","legendaItems":"","fillColor":"red","color":"red","eenheid":"","weight":"","opacity":"","fillOpacity":"0.5","dash":"","radius":"radius","zoomMin":"","zoomMax":"","jaarSlider":"","tableParams":"","attribution":"","metadata":"","bronNaam":"","bronActor":"","verantwoordelijkeActor":"","juridischeGrondslag":"","contactpersoon":"","":""};
     updateLayers(0);
     updateLegend();
+
 
     function updateLayers(additional) {
       //var laagKenmerken = [];
       var additional;
+      var countGeoJson=0;
+
       for (var l = additional; l < laagKenmerken.length; l++) {
 
-        console.log('laag: ' + l);
-        console.log('laagNaam: ' + laagKenmerken[l].laagNaam);
+ //       console.log('laag: ' + l);
+ //       console.log('laagNaam: ' + laagKenmerken[l].laagNaam);
         let legendeGroep = laagKenmerken[l].legendeGroep;
         let legendeNaam = laagKenmerken[l].legendeNaam;
         let laagNaam = laagKenmerken[l].laagNaam;
         let url = laagKenmerken[l].url;
         geojsonCQLFilter = 'feature.properties.' + laagKenmerken[l].cqlFilter;
-        console.log('filter: ' + geojsonCQLFilter);
+//        console.log('filter: ' + geojsonCQLFilter);
         jsonFilter = function (feature) { if (geojsonCQLFilter) return true };
+        let ToolTip = laagKenmerken[l].popup;
+       //to set a string as variable name use variableName = window['stringName'] or eval('stringname')
+       // let isnum = /^\d+$/.test(laagKenmerken[l].radius); //true if number, false if empty or anything else.
+        (/^\d+$/.test(laagKenmerken[l].radius)) ? radiusLayer = laagKenmerken[l].radius : (laagKenmerken[l].radius) ? radiusLayer = 'feature.properties.' + laagKenmerken[l].radius : radiusLayer = 3;
+        (/^\d+$/.test(laagKenmerken[l].weight)) ? weightLayer = laagKenmerken[l].weight : (laagKenmerken[l].weight) ? weightLayer = 'feature.properties.' + laagKenmerken[l].weight : weightLayer = 2;
+
+//        console.log('TooltipColumnName: ' + ToolTip);
+
         var Edrager;
         switch (laagKenmerken[l].energiedragerNetten) {
-          case 'gassen/olien': Edrager = 0; console.log('bingo gassen/olien!'); break;
-          case 'warmte': Edrager = 1; console.log('bingo warmte!'); break;
-          case 'elektra': Edrager = 2; console.log('bingo elektra!'); break;
+          case 'gassen/olien': Edrager = 0; break;
+          case 'warmte': Edrager = 1; break;
+          case 'elektra': Edrager = 2; break;
           default: Edrager = 3; break;
         };
         if (laagKenmerken[l].laagBeschikbaarheid) {
-          console.log('beschikbaar: ');
+//          console.log('beschikbaar: ');
           switch (laagKenmerken[l].dataType) {
             case 'wfs':
-              // code block
               var cqlFilter = '';
               if (laagKenmerken[l].cqlFilter) { cqlFilter = '&cql_filter=' + laagKenmerken[l].cqlFilter };
               layerControl[Edrager].addOverlay(
                 L.geoJson.ajax(
                   laagKenmerken[l].url + WFSparams + laagKenmerken[l].laagNaam + cqlFilter, {
-                  style: jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions),
-                  pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { stroke: false, radius: laagKenmerken[l].radius }) },
-                  onEachFeature: tabularPopup2
-                }
+                    style: jsonAdd({weight: eval(weightLayer)},jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions)),
+                    pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, {stroke: false, radius: eval(radiusLayer) })},
+                    onEachFeature: tabularPopup2
+                    }
                 ),
                 legendeNaam, legendeGroep);
               break;
             case 'wms':
+//						     console.log('laagNaam WMS: ' + laagKenmerken[l].laagNaam);
               layerControl[Edrager].addOverlay(
                 L.tileLayer.wms(
                   laagKenmerken[l].url, jsonAdd({ layers: laagKenmerken[l].laagNaam, cql_filter: laagKenmerken[l].cqlFilter }, jsonAdd(extractRasterStyleOptions(laagKenmerken[l]), defaultOptions))
@@ -587,25 +550,42 @@
               layerControl[Edrager].addOverlay(
                 L.geoJson.ajax(
                   laagKenmerken[l].url, {
-                  //									filter: function(feature, layer) {return (eval(geojsonCQLFilter))},
-                  style: jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions),
-                  pointToLayer: function (feature, latlng) {
-                    return L.circleMarker(latlng, { radius: laagKenmerken[l].radius, fillOpacity: 0.8 }).bindTooltip(String(feature.properties.Popup), { permanent: false, opacity: 0.9 }).openTooltip()
-                  },
-                  onEachFeature: tabularPopup2
-                }
+                    style: function (feature, layer) { return (jsonAdd({weight: eval(weightLayer)},jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions)))},
+                    filter: function (feature, layer) { return (eval(filterGeoJson(laagKenmerken[l].cqlFilter))) },
+		          			onEachFeature: tabularPopup2,
+                    pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, {stroke: false, radius: eval(radiusLayer) })},
+                  }
                 ),
                 legendeNaam, legendeGroep);
               break;
+              case 'droppedGeoJson':
+              for (var g = 0; g < droppedLayerContainer.length; g++) {
+                if (droppedLayerContainer[g].fileName == laagKenmerken[l].url) {
+                  console.log('dropped>' + JSON.stringify(droppedLayerContainer[g].fileString));
+                    layerControl[Edrager].addOverlay(
+                      L.geoJson(
+                        droppedLayerContainer[g].fileString, {
+                        style: function (feature, layer) { return (jsonAdd({weight: eval(weightLayer)},jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions)))},
+                        filter: function (feature, layer) { return (eval(filterGeoJson(laagKenmerken[l].cqlFilter))) },
+		          			    onEachFeature: tabularPopup2,
+                        pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, {stroke: false, radius: eval(radiusLayer) })},
+                        }
+                      ),
+                    legendeNaam, legendeGroep);  
+                      }
+                else {geojsonLayer.addData(droppedLayerContainer[g].fileString);geojsonLayer.addTo(map);}
+              };
+            break;
             case 'gpkg':
               layerControl[Edrager].addOverlay(
                 L.geoPackageFeatureLayer([], {
                   geoPackageUrl: laagKenmerken[l].url,
                   layerName: laagKenmerken[l].laagNaam,
-                  filter: jsonFilter,
-                  style: jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions),
-                  pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { stroke: false, radius: laagKenmerken[l].radius }) },
-                  onEachFeature: tabularPopup2
+//                filter: jsonFilter,
+                  style: function (feature, layer) { return (jsonAdd({weight: eval(weightLayer)},jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions)))},
+                  filter: function (feature, layer) { return (eval(filterGeoJson(laagKenmerken[l].cqlFilter))) },
+							    onEachFeature: tabularPopup2,
+                  pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, {stroke: false, radius: eval(radiusLayer) })},
                 }),
                 legendeNaam, legendeGroep
               );
@@ -614,28 +594,33 @@
               // code block
               break;
             case 'varGeojson': //loaded geojson show as wfs with popup > var loaded with <script src="./data/xxxxx.js">
-              //to set a string as variable name use variableName = window['stringName'] or eval('stringname')
-              // let isnum = /^\d+$/.test(laagKenmerken[l].radius); //true if number false if empty or anything else.
-
-              (/^\d+$/.test(laagKenmerken[l].radius)) ? radiusLayer = laagKenmerken[l].radius :
-                (laagKenmerken[l].radius) ? radiusLayer = 'feature.properties.' + laagKenmerken[l].radius :
-                  radiusLayer = 3;
-              var test = filterGeoJson(laagKenmerken[l].cqlFilter);
-              console.log('testFilter: ' + test);
+                //voorbeeld
+                //     layerControl[3].addOverlay(L.geoJson(LCP, {
+                //  style: { weight: 2 },
+                //	   filter: function(feature, layer) {return (feature.properties.color == "yellow") ;},
+                //filter: function(feature, layer) {return (eval(geojsonCQLFilterTest))},
+                //    onEachFeature: tabularPopup2,
+                //     pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { color: 'red', radius: feature.properties.totalRatedThermalInput / 1000 * 2, fillOpacity: 0.8 }).bindTooltip(String(feature.properties.nameOfFeature), { permanent: false, opacity: 0.9 }).openTooltip() },
+                //  }), "Grote StookInstallaties EU > 50 MW", "Consumenten");
+                    
+                //voorbeeld 2
+                  //~ 		layerControl[3].addOverlay(L.geoJson(industrie, {
+                  //~       style: { weight: 2 },
+                  //~       //  filter: function(feature, layer) {return (feature.properties.color == "yellow") ;},
+                  //~       //filter: function(feature, layer) {return (eval(geojsonCQLFilterTest))},
+                  //~       onEachFeature: tabularPopup2,
+                  //~       pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { color: feature.properties.color, radius: (feature.properties.radius * 2), fillOpacity: 0.8 }) },
+                  //~     }) .bindTooltip(function (layer) { return String(layer.feature.properties.Popup) }), "Grootste Industrie test", "Consumenten");
               layerControl[Edrager].addOverlay(
                 L.geoJson(
                   window[laagKenmerken[l].laagNaam], {
-                  style: jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions),
+                  style: function (feature, layer) { return (jsonAdd({weight: eval(weightLayer)},jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions)))},
                   filter: function (feature, layer) { return (eval(filterGeoJson(laagKenmerken[l].cqlFilter))) },
-                  pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { radius: eval(radiusLayer), fillOpacity: 0.8 }).bindTooltip(String(eval(laagKenmerken[l].popup)), { permanent: false, opacity: 0.9 }).openTooltip() },
-                  onEachFeature: tabularPopup2
-                }
-                ),
-                legendeNaam, legendeGroep
+				          onEachFeature: tabularPopup2,
+                  pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, {stroke: false, radius: eval(radiusLayer) })},
+				  }), 
+                legendeNaam, legendeGroep 
               );
-              break;
-            case 'varGeojsonVT': //loaded geojson show as wms without popup > var loaded with  <script src="./data/xxxx.js">
-              layerControl[Edrager].addOverlay(L.geoJson.vt(window[laagKenmerken[l].laagNaam], { filter: jsonFilter, style: jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions), pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { stroke: false, radius: laagKenmerken[l].radius }) }, onEachFeature: tabularPopup2 }), legendeNaam, legendeGroep);
               break;
             default:
             // code block
@@ -659,12 +644,11 @@
 
         (first == '%') ? start = 1 : start = 0;
         (last == '%') ? end = eval(words[2]).length - 1 - start : end = eval(words[2]).length;
-
-        console.log('word, start, first, last, end; ' + words[2], start, first, last, end);
+ //       console.log('word, start, first, last, end; ' + words[2], start, first, last, end);
 
         term = eval(words[2]).substr(start, end);
         (first == '%') ? string = 'feature.properties.' + words[0] + '.indexOf("' + term + '") >= 0' : string = 'feature.properties.' + words[0] + '.indexOf("' + term + '") == 0';
-        console.log(string);
+  //      console.log(string);
       }
       else
         if (cql) { //geen like maar > of == of <
@@ -682,30 +666,42 @@
       var aantalGroep = [];
       aantalGroep[0] = 0;
       var Groepnr = -1;
+  
+      d3.select('#legendLayers').selectAll("*").remove(); //empty existing and child elements
+
       let svg = [];
+
+
+      $("#legendLayers").empty; //empty existing and child elements
+
+
+      //fill again
+
       svg[0] = d3.select("#legendLayers").append("svg").attr("width", 300).attr("height", 40);
+
       svg[0].append('text').attr("x", 40).attr("y", 10).attr("transform", "translate(8,4)").attr("class", "heavy").text('Legende');
 
-
-      console.log('legendeGroep[0]: ' + legendeGroep[0]);
+ //     console.log('legendeGroep[0]: ' + legendeGroep[0]);
 
       //console.log('laagKenmerkenLength: ', laagKenmerken.length);
       for (var l = 0; l < laagKenmerken.length; l++) {
+        if (laagKenmerken[l].laagBeschikbaarheid) {
 
-        console.log('laagKenmerken[' + l + ']= ' + JSON.stringify(eval(laagKenmerken[l])) + ';');
-        console.log('groep: ' + laagKenmerken[l].legendeGroep);
+    //    console.log('laagKenmerken[' + l + ']= ' + JSON.stringify(eval(laagKenmerken[l])) + ';');
+    //    console.log('groep: ' + laagKenmerken[l].legendeGroep);
 
         let leg = 0;
         //d3.select("#legendLayers").remove("svg")
         addLegendLayer();
+        }
       };
 
 
       function addLegendLayer() {
         var legendeGroepexists = 0;
-        for (leg = 0; leg < legendeGroep.length; leg++) { if (laagKenmerken[l].legendeGroep === legendeGroep[leg]) { legendeGroepexists = 1; Groepnr = leg; console.log('Groepnaam: ' + legendeGroep[leg]) } }; //check if legend group exists in legend
+        for (leg = 0; leg < legendeGroep.length; leg++) { if (laagKenmerken[l].legendeGroep === legendeGroep[leg]) { legendeGroepexists = 1; Groepnr = leg; } }; //check if legend group exists in legend
 
-        console.log('legendeExists?' + legendeGroepexists + ' Groepnr=' + Groepnr + ' l= ' + l);
+     //   console.log('legendeExists?' + legendeGroepexists + ' Groepnr=' + Groepnr + ' l= ' + l);
         //			if ((l === 0)){ //add new legend groep
 
         if ((legendeGroepexists === 0) || (l === 0)) { //add new legend groep
@@ -720,7 +716,7 @@
 
 
           aantalGroep[Groepnr] = 1;
-          console.log('new legend Group: ' + laagKenmerken[l].legendeGroep + ' aantal in groep: ' + aantalGroep[Groepnr] + ' Groepnr= ' + Groepnr);
+   //       console.log('new legend Group: ' + laagKenmerken[l].legendeGroep + ' aantal in groep: ' + aantalGroep[Groepnr] + ' Groepnr= ' + Groepnr);
         }
         else { //add new legend row
           //		(l === 1
@@ -728,7 +724,7 @@
 
           addLegendFigure();
           aantalGroep[Groepnr] = aantalGroep[Groepnr] + 1;
-          console.log('new Legend row: ' + laagKenmerken[l].legendeGroep + ' aantal in groep: ' + aantalGroep[Groepnr] + ' Groenr= ' + Groepnr);
+   //       console.log('new Legend row: ' + laagKenmerken[l].legendeGroep + ' aantal in groep: ' + aantalGroep[Groepnr] + ' Groenr= ' + Groepnr);
           //			console.log('count rows legend:' + aantalGroep[Groepnr] );
         };
 
@@ -738,9 +734,9 @@
 
         switch (laagKenmerken[l].fig) {
           case 'circle':
-            svg[Groepnr].append(laagKenmerken[l].fig).style("stroke", laagKenmerken[l].color).style("fill", laagKenmerken[l].color).attr("r", 6).attr("cx", 22).attr("cy", 30 + aantalGroep[Groepnr] * 20).attr("transform", "translate(0,8)");
+            svg[Groepnr].append(laagKenmerken[l].fig).style("stroke", laagKenmerken[l].color).style("fill", laagKenmerken[l].fillColor).attr("r", 6).attr("cx", 22).attr("cy", 30 + aantalGroep[Groepnr] * 20).attr("transform", "translate(0,8)");
           case 'rect':
-            svg[Groepnr].append(laagKenmerken[l].fig).style("stroke", laagKenmerken[l].color).style("fill", laagKenmerken[l].color).attr("x", 10).attr("y", 30 + aantalGroep[Groepnr] * 20).attr("width", 25).attr("height", 15);
+            svg[Groepnr].append(laagKenmerken[l].fig).style("stroke", laagKenmerken[l].color).style("fill", laagKenmerken[l].fillColor).attr("x", 10).attr("y", 30 + aantalGroep[Groepnr] * 20).attr("width", 25).attr("height", 15);
             break;
           case 'line':
             svg[Groepnr].append(laagKenmerken[l].fig).style("stroke", laagKenmerken[l].color).style("stroke-width", 2).style("stroke-dasharray", laagKenmerken[l].dash).attr("x1", 10).attr("y1", 37 + aantalGroep[Groepnr] * 20).attr("x2", 35).attr("y2", 37 + aantalGroep[Groepnr] * 20).attr("width", 25).attr("height", 15);
@@ -753,47 +749,93 @@
 
     };
 
-    document.addEventListener("drop", function (event) {
+    let dropMap = document.getElementById('map')
+
+    dropMap.addEventListener("dragover", function (event) {
+      event.preventDefault();
+      console.log('Attempting to drop...')
+    });
+
+
+    dropMap.addEventListener("drop", function (event) {
       event.stopPropagation();
       event.preventDefault();
+      
       var files = event.dataTransfer.files;
-      //geeft wel  de delimiter terug en een json
-      var CSVfile = files[0];
-      var printvalue = CSVfile;
-      Papa.parse(CSVfile, {
-        header: true,
-        before: function (CSVfile, inputElem) { console.log('Attempting to Parse...') },
-        error: function (err, CSVfile, inputElem, reason) { console.log(err); },
-        complete: function (results, CSVfile) {
-
-          switch (CSVfile.name) {
-            case 'CES.csv':
-              console.log('%c Load CES-data CSV (' + printvalue.name + ')', 'background: #222; color: #ff0000');
-              CESCustomDataSet = results.data;
-              flag_CESCustomDatasetLoaded = true;
-              break;
-            default:
-              console.log('%c Load Kaartlagen-data CSV (' + printvalue.name + ')', 'background: #222; color: #ff0000');
-              var key = 'fillColor';
-              fieldSeparatorTest = results.meta.delimiter;
-              var start = laagKenmerken.length;
-              laagKenmerken = laagKenmerken.concat(results.data);
-              console.log(JSON.stringify(laagKenmerken));
-              console.log('laagKenmerken[0]=' + JSON.stringify(eval(laagKenmerken[0])));
-              console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
-                return this.laagNaam;
-              }));
-              console.table(laagKenmerken);
-
-
-              updateLayers(start);//only layers from import are updated
-              updateLegend(); //all (new from csv and old)are updated
+      var i = 0;
+        var len = files.length;
+        if (!len) {
+          return
           }
+       while (i < len) {
+           handleFile(files[i]);
+            i++;
+       }
 
-          return;
-        }
-      });
     });
+
+
+    function handleFile(file) {
+      //  map.spin(true);
+        ext = file.name.split('.');
+        ext = ext[ext.length - 1];
+        console.log('ext> ' + ext);
+        console.log('filename>' + file.name);
+   //     switch (file.name.slice(-3)) {
+      switch (ext) {
+      case 'json':  
+            var reader = new FileReader();
+            reader.readAsBinaryString(file);
+            reader.onload = function (e) {
+            data = e.target.result;
+
+             var droppedLayer = {};
+            //hier geojson importeren en als overlay leggen.
+            droppedLayer.fileName = file.name;
+            droppedLayer.fileString = JSON.parse(data);
+            droppedLayerContainer.push(droppedLayer);
+            }  
+            break;   
+        case 'csv':
+        let CSVfile= file;
+        let printvalue = CSVfile;
+            Papa.parse(CSVfile, {
+            header: true,
+            before: function (CSVfile, inputElem) { console.log('Attempting to Parse...') },
+            error: function (err, CSVfile, inputElem, reason) { console.log(err); },
+            complete: function (results, CSVfile) {
+
+                switch (CSVfile.name) {
+                        case 'CES.csv':
+                        console.log('%c Load CES-data CSV (' + printvalue.name + ')', 'background: #222; color: #ff0000');
+                        CESCustomDataSet = results.data;
+                        flag_CESCustomDatasetLoaded = true;
+                        break;
+                        default:
+                        console.log('%c Load Kaartlagen-data CSV (' + printvalue.name + ')', 'background: #222; color: #ff0000');
+                        var key = 'fillColor';
+                        fieldSeparatorTest = results.meta.delimiter;
+                        var start = laagKenmerken.length;
+                        laagKenmerken = laagKenmerken.concat(results.data);
+//                        console.log(JSON.stringify(laagKenmerken));
+                        console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
+                            return this.laagNaam;
+                        }));
+                        console.table(laagKenmerken);
+
+                        updateLayers(start);//only layers from import are updated
+                        updateLegend(); //all (new from csv and old)are updated
+                }
+            return;
+             }
+            });
+            break;
+
+        default:
+          break;
+
+}
+}
 
 
   </script>

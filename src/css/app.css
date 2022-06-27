@@ -316,6 +316,14 @@ div.fixed {
 }
 
 
+.leaflet-popup-content-wrapper {
+	maxWidth: 400;
+}
+
+.leaflet-popup-content-wrapper .leaflet-popup-content {
+		maxWidth: 400;
+}
+
 /* CES Sankeys start */
 
 #fullpagePopup {
