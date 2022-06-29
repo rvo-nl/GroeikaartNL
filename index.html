@@ -783,7 +783,7 @@
         console.log('filename>' + file.name);
    //     switch (file.name.slice(-3)) {
       switch (ext) {
-      case 'json':  
+      case 'geojson':  
             var reader = new FileReader();
             reader.readAsBinaryString(file);
             reader.onload = function (e) {
