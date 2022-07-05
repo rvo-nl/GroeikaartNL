@@ -71,6 +71,8 @@
   <script src="./src/js/leaflet.wktcsv.js"></script>
   <!--script src="./src/js/leaflet.spin.min.js"></script>
   <script src="./src/js/spin.min.js"></script-->
+<!-- use the latest version -->
+  <script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
 
 
   <script src="./data/industrie.js"></script>
@@ -830,7 +832,40 @@
              }
             });
             break;
+        case 'xlsx':
+              console.log('bingo xlsx');
+              let xslxfile = file;
+              let printvalue2 = xslxfile;
+              var reader = new FileReader();
+              reader.readAsArrayBuffer(xslxfile);
+              reader.onload = function (e) {
+                  data = e.target.result;
+                  var workbook = XLSX.read(data);
 
+                  switch (xslxfile.name) {
+                          case 'CES.xslx':
+                            console.log('%c Load CES-data xslx (' + printvalue2.name + ')', 'background: #222; color: #ff0000');
+			rawDataCES = XLSX.utils.sheet_to_json(workbook.Sheets['CES']);
+                            CESCustomDataSet = rawDataCES;
+                            flag_CESCustomDatasetLoaded = true;
+                            break;
+                          default:
+                            console.log('%c Load Kaartlagen-data xslx (' + printvalue2.name + ')', 'background: #222; color: #ff0000');
+                  		rawData = XLSX.utils.sheet_to_json(workbook.Sheets['Kaartlagen']);
+                            var start = laagKenmerken.length;
+                            laagKenmerken = laagKenmerken.concat(rawData);
+    //                        console.log(JSON.stringify(laagKenmerken));
+                            console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
+                                return this.laagNaam;
+                            }));
+                            console.table(laagKenmerken);
+
+                            updateLayers(start);//only layers from import are updated
+                            updateLegend(); //all (new from csv and old)are updated
+                            break;
+                  }
+              }
+              break;
         default:
           break;
 
