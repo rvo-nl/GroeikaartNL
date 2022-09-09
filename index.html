@@ -415,6 +415,15 @@
     //	"Vergunde Windparken Offshore WFS": L.geoJson.ajax("https://geoservices.rijkswaterstaat.nl/apps/geoserver/windenergiegebieden/ows?"+WFSparams+'vergunde_windparken', {style: {fillColor: 'yellow', fillOpacity:0.2 ,color:'yellow', weight:2}, onEachFeature: tabularPopup2}),
 
     // wms
+
+    layerControl[2].addOverlay(L.tileLayer.wms('https://geo.rijkswaterstaat.nl/services/ogc/gdr/windenergiegebieden/wms',
+	{layers: 'windenergiegebieden:vergunde_windparken', 
+	crs: L.CRS.EPSG4326,
+   	format: 'image/png',
+ 	transparent: true
+	}), 
+	'demo WMS vergunde windparken op zee', 
+	'Producenten');
     //var wind = L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?',jsonAdd({layers: 'SDE_elektra',CQL_FILTER: "SubSoort LIKE '%wind%'"}, options));
     //   var wind2 = L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?', jsonAdd({ layers: 'Demo SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'" }, jsonAdd(extractRasterStyleOptions({ attribution: '&copy; WarmteAtlas' }), defaultOptions)));
     //	layerControl[2].addOverlay(L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?',jsonAdd({layers: 'SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'"},jsonAdd(extractRasterStyleOptions({attribution: '&copy; WarmteAtlas'}),defaultOptions))), 'Demolaag WMS SDE projecten RVO', 'Producenten');
@@ -488,7 +497,7 @@
 
 // example
     laagKenmerken[0] = {"laagBeschikbaarheid": "x", "legendeNaam": "AVI", "legendeGroep": "Consumenten", "subsoort": "bedrijven", "energiedragerNetten": "regios", "dataType": "varGeojson", "status": "balans", "urlOWS": "", "url": "", "laagNaam": "industrie", "cqlFilter": "color == 'yellow'", "popup": "feature.properties.Popup", "attributeMap": "", "fig": "circle", "legendaItems": "", "fillColor": "yellow", "color": "white", "eenheid": "", "weight": "1", "opacity": "", "fillOpacity": "0.3", "dash": "", "radius": "radius*2", "zoomMin": "", "zoomMax": "", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "" };
-    laagKenmerken[1] = {"laagBeschikbaarheid":"x","legendeNaam":"Subsidie AardWarmte","legendeGroep":"Producenten","subsoort":"Warmte","energiedragerNetten":"warmte","dataType":"wfs","status":"subsidieBeschikking","url":"https://rvo.tailormap.nl/geoserver/WarmteAtlas/wfs?","laagNaam":"SDE_warmte","cqlFilter":"SubSoort LIKE 'aardWarmte'","popup":"","attributeMap":"","fig":"circle","legendaItems":"","fillColor":"red","color":"red","eenheid":"","weight":"","opacity":"","fillOpacity":"0.5","dash":"","radius":"radius","zoomMin":"","zoomMax":"","jaarSlider":"","tableParams":"","attribution":"","metadata":"","bronNaam":"","bronActor":"","verantwoordelijkeActor":"","juridischeGrondslag":"","contactpersoon":"","":""};
+//    laagKenmerken[1] = {"laagBeschikbaarheid":"x","legendeNaam":"Subsidie AardWarmte","legendeGroep":"Producenten","subsoort":"Warmte","energiedragerNetten":"warmte","dataType":"wfs","status":"subsidieBeschikking","url":"https://rvo.tailormap.nl/geoserver/WarmteAtlas/wfs?","laagNaam":"SDE_warmte","cqlFilter":"SubSoort LIKE 'aardWarmte'","popup":"","attributeMap":"","fig":"circle","legendaItems":"","fillColor":"red","color":"red","eenheid":"","weight":"","opacity":"","fillOpacity":"0.5","dash":"","radius":"radius","zoomMin":"","zoomMax":"","jaarSlider":"","tableParams":"","attribution":"","metadata":"","bronNaam":"","bronActor":"","verantwoordelijkeActor":"","juridischeGrondslag":"","contactpersoon":"","":""};
     updateLayers(0);
     updateLegend();
 
