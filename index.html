@@ -417,10 +417,7 @@
     // wms
 
     layerControl[2].addOverlay(L.tileLayer.wms('https://geo.rijkswaterstaat.nl/services/ogc/gdr/windenergiegebieden/wms',{layers: 'windenergiegebieden:vergunde_windparken', crs: L.CRS.EPSG4326, format: 'image/png', transparent: true}),'WMS vergunde windparken op zee', 'Producenten'); 
-    //var wind = L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?',jsonAdd({layers: 'SDE_elektra',CQL_FILTER: "SubSoort LIKE '%wind%'"}, options));
-    //   var wind2 = L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?', jsonAdd({ layers: 'Demo SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'" }, jsonAdd(extractRasterStyleOptions({ attribution: '&copy; WarmteAtlas' }), defaultOptions)));
-    //	layerControl[2].addOverlay(L.tileLayer.wms('https://rvo.b3p.nl/geoserver/WarmteAtlas/wms?',jsonAdd({layers: 'SDE_elektra', cql_filter: "SubSoort LIKE '%wind%'"},jsonAdd(extractRasterStyleOptions({attribution: '&copy; WarmteAtlas'}),defaultOptions))), 'Demolaag WMS SDE projecten RVO', 'Producenten');
-    //  layerControl[2].addOverlay(wind2, 'Demolaag WMS SDE wind projecten RVO', 'Productie');zee','Producenten');
+
 
     // geojson import from server
     //layerControl[2].addOverlay(L.geoJson.ajax('data/Windturbines.json', {style: {fillColor: 'yellow', fillOpacity:0.7 ,color:'yellow', weight:2 }, onEachFeature: tabularPopup2, pointToLayer: function(feature, latlng) {return L.marker(latlng, {icon: windIcon})}}), "Demo GeoJson Windmolens " , "Producenten");
@@ -494,6 +491,24 @@
     updateLayers(0);
     updateLegend();
 
+    Papa.parse('data/Kaartlagen.csv', {
+      header: true,
+      //before: function ('data/Kaartlagen.csv', inputElem) { console.log('Attempting to Parse...') },
+      //error: function (err, 'data/Kaartlagen.csv', inputElem, reason) { console.log(err); },
+      download: true,
+      //dynamicTyping: true,
+      complete: function(results) {
+        console.log(results);
+        var start = laagKenmerken.length;
+        laagKenmerken = laagKenmerken.concat(results.data);
+        console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
+                            return this.laagNaam;
+                        }));
+        console.table(laagKenmerken);
+        updateLayers(start);//only layers from import are updated
+        updateLegend();
+      }
+    });   
 
     function updateLayers(additional) {
       //var laagKenmerken = [];
