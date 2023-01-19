@@ -95,7 +95,6 @@
 <script src="./data/BuisleidingenRRGS.js"></script-->
   <script src="./data/LCP2020.js"></script>
 
-  <!-- test -->
   <!-- Includes ten behoeve van CES Sankey diagrammen -->
   <script src="./src/js/CESdiagrammen/d3.sankey.edit.js"></script>
   <script src="./src/js/CESdiagrammen/ces.sankey.js"></script>
@@ -150,8 +149,8 @@
   </div>
   <div id="filtercontainer" style="visibility: hidden">
     <form class="form-search" class="noSelect" onSubmit="addCSV(); return false;">
-      <label for="myfile" id="csvFile">Selecteer *.csv file:</label>
-      <input type="file" id="uploadfile" onChange="readImage(this)" value="input *.csv">
+      <label for="myfile" id="xlsxFile">Selecteer *.xlsx file:</label>
+      <input type="file" id="uploadfile" onChange="readExcelFile(this)" value="input *.csv">
       </br>
       <a href="#" id="clear" class="leaflet-popup-close-button">&#215;</a>
       <div class="input-append">
@@ -317,13 +316,13 @@
 
     map.on('pm:create', function (e) {
       var shape = JSON.stringify(e.layer.toGeoJSON());
-      console.log('geojson> ' + shape);
+      // console.log('geojson> ' + shape);
       var wkt = new Wkt.Wkt();
       wkt.read(shape);
       document.getElementById('wkt').value = 'wkt> ' + wkt.write() + '\n' + 'geojson> ' + shape;
       e.layer.on('pm:edit', ({ layer }) => {
         var shape = JSON.stringify(layer.toGeoJSON());
-        console.log('geojson> ' + shape);
+        // console.log('geojson> ' + shape);
         var wkt = new Wkt.Wkt();
         wkt.read(shape);
         document.getElementById('wkt').value = 'wkt> ' + wkt.write() + '\n' + 'geojson> ' + shape;
@@ -498,13 +497,13 @@
       download: true,
       //dynamicTyping: true,
       complete: function (results) {
-        console.log(results);
+        // console.log(results);
         var start = laagKenmerken.length;
         laagKenmerken = laagKenmerken.concat(results.data);
         console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
           return this.laagNaam;
         }));
-        console.table(laagKenmerken);
+        // console.table(laagKenmerken);
         updateLayers(start);//only layers from import are updated
         updateLegend();
       }
@@ -826,21 +825,19 @@
 
               switch (CSVfile.name) {
                 case 'CES.csv':
-                  console.log('%c Load CES-data CSV (' + printvalue.name + ')', 'background: #222; color: #ff0000');
+                  // console.log('%c Load CES-data CSV (' + printvalue.name + ')', 'background: #222; color: #ff0000');
                   CESCustomDataSet = results.data;
                   flag_CESCustomDatasetLoaded = true;
                   break;
                 default:
-                  console.log('%c Load Kaartlagen-data CSV (' + printvalue.name + ')', 'background: #222; color: #ff0000');
+                  // console.log('%c Load Kaartlagen-data CSV (' + printvalue.name + ')', 'background: #222; color: #ff0000');
                   var key = 'fillColor';
                   fieldSeparatorTest = results.meta.delimiter;
                   var start = laagKenmerken.length;
                   laagKenmerken = laagKenmerken.concat(results.data);
-                  //                        console.log(JSON.stringify(laagKenmerken));
-                  console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
-                    return this.laagNaam;
-                  }));
-                  console.table(laagKenmerken);
+                  // console.log(JSON.stringify(laagKenmerken));
+                  // console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {return this.laagNaam;}));
+                  // console.table(laagKenmerken);
 
                   updateLayers(start);//only layers from import are updated
                   updateLegend(); //all (new from csv and old)are updated
@@ -850,7 +847,7 @@
           });
           break;
         case 'xlsx':
-          console.log('bingo xlsx');
+          // console.log('bingo xlsx');
           let xslxfile = file;
           let printvalue2 = xslxfile;
           var reader = new FileReader();
@@ -861,21 +858,21 @@
 
             switch (xslxfile.name) {
               case 'CES.xslx':
-                console.log('%c Load CES-data xslx (' + printvalue2.name + ')', 'background: #222; color: #ff0000');
+                // console.log('%c Load CES-data xslx (' + printvalue2.name + ')', 'background: #222; color: #ff0000');
                 rawDataCES = XLSX.utils.sheet_to_json(workbook.Sheets['CES']);
                 CESCustomDataSet = rawDataCES;
                 flag_CESCustomDatasetLoaded = true;
                 break;
               default:
-                console.log('%c Load Kaartlagen-data xslx (' + printvalue2.name + ')', 'background: #222; color: #ff0000');
+                // console.log('%c Load Kaartlagen-data xslx (' + printvalue2.name + ')', 'background: #222; color: #ff0000');
                 rawData = XLSX.utils.sheet_to_json(workbook.Sheets['Kaartlagen']);
                 var start = laagKenmerken.length;
                 laagKenmerken = laagKenmerken.concat(rawData);
                 //                        console.log(JSON.stringify(laagKenmerken));
-                console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
-                  return this.laagNaam;
-                }));
-                console.table(laagKenmerken);
+                // console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
+                //   return this.laagNaam;
+                // }));
+                // console.table(laagKenmerken);
 
                 updateLayers(start);//only layers from import are updated
                 updateLegend(); //all (new from csv and old)are updated
