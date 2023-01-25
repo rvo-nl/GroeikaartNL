@@ -14,8 +14,22 @@ var obj_csv =
   dataFile: []
 }
 
+function readFile (input) {
+  if (input.files[0].name.indexOf('xlsx') != -1) {
+    // file is of type XLSX
+    readExcelFile(input)
+  }
+  else if (input.files[0].name.indexOf('csv') != -1) {
+    // file is of type CSV
+    readCVSFile(input)
+  }else {
+    // unknown filetype
+    alert('Met deze functionaliteit kan je uitsluitend een XLSX (Excel) bestand of een CSV bestand inlezen.')
+  }
+}
+
 function readExcelFile (fileInput) {
-  // Check if the file input is empty
+  // Check if the file input is empty 
   if (!fileInput.files || !fileInput.files[0]) {
     console.log('No file selected')
     return
@@ -55,7 +69,7 @@ function readExcelFile (fileInput) {
   reader.readAsBinaryString(fileInput.files[0])
 }
 
-function readImage (input) {
+function readCVSFile (input) {
   if (input.files && input.files[0]) {
     let reader = new FileReader()
     reader.readAsBinaryString(input.files[0])
