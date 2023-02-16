@@ -10,6 +10,7 @@ In every row of the dropped file the user defines s the titel of the layer, the 
 Format of the layer xlsx file or a .csv file with pipe (|) separation:
 
 | laagBeschikbaarheid |	legendeNaam |	legendeGroep |	energiedragerNetten	| dataType |	url |	laagNaam |	cqlFilter |	popup	| fig	| fillColor |	color	| weight	| opacity |	fillOpacity	| dash	| radius |	zoomMin	| zoomMax| 
+| --- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
 |x|title|groupname| themename |wms, wfs,geojson| url of WFS service or WMS service or name of dropped geojson| layername | filter| popupfiledname |figure for legend (circle, rect, line)| fillcolor | linecolor | thickness of line | opacity of line |	fillOpacity of polygon	| dash of line	| radius of points |	view zoom minimum	| view zoom maximum | 
 |required | required | required | required | required | required | required | optional | optional | required | required | required | optional | optional | optional | optional | optional | optional | optional | 
 
@@ -20,6 +21,7 @@ see "Kaartlagen.csv" as example.
 
 Format with required field of the data xlsx file or a .csv file with pipe (|) separation:
 | naam | wkt | InstallatieJaar | color |
+|--- |--- |--- |--- |
 | title of popup hover | wkt geometery | Year (2020-2050) for slicer | color |
 
 User can add additional fields which are shown in the popup.
