@@ -439,7 +439,7 @@
 
     //examples
     //cluster
-    layerControl[3].addOverlay(CESclusters, 'CES clusters', 'Clusters');//popup bij klik
+    layerControl[3].addOverlay(CESclusters, 'CES clusters', 'Clusters Energie-, en CO2 balans');//popup bij klik
 
     layerControl[0].addOverlay(L.geoJson.ajax("https://geo.rijkswaterstaat.nl/services/ogc/gdr/kaderrichtlijn_water/ows?" + WFSparams + 'KRW_oppervlaktewaterlichamen_vlak', { style: { fillColor: 'blue', fillOpacity: 0.2, color: 'blue', weight: 1 } }, { attribution: '&copy; <a href="https://geo.rijkswaterstaat.nl/services/ogc/gdr/web/wicket/bookmarkable/org.geoserver.web.demo.MapPreviewPage?1">RWS</a> contributors', minZoom: 10, maxZoom: 20 }), 'Water', 'Transport');
 
