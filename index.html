@@ -458,7 +458,7 @@
 
     // wms
 
-    layerControl[2].addOverlay(L.tileLayer.wms('https://geo.rijkswaterstaat.nl/services/ogc/gdr/windenergiegebieden/wms', { layers: 'windenergiegebieden:vergunde_windparken', crs: L.CRS.EPSG4326, format: 'image/png', transparent: true }), 'WMS vergunde windparken op zee', 'Producenten');
+  //  layerControl[2].addOverlay(L.tileLayer.wms('https://geo.rijkswaterstaat.nl/services/ogc/gdr/windenergiegebieden/wms', { layers: 'windenergiegebieden:vergunde_windparken', crs: L.CRS.EPSG4326, format: 'image/png', transparent: true }), 'WMS vergunde windparken op zee', 'Producenten');
 
 
     // geojson import from server
@@ -477,7 +477,7 @@
       //filter: function(feature, layer) {return (eval(geojsonCQLFilterTest))},//werkt
       onEachFeature: tabularPopup2,
       pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { color: feature.properties.color, radius: (feature.properties.radius * 2), fillOpacity: 0.8 }) },
-    }).bindTooltip(function (layer) { return String(layer.feature.properties.Popup) }), "Grootste Industrie ", "Consumenten");
+    }).bindTooltip(function (layer) { return String(layer.feature.properties.Popup) }), "Grootste Industrie ", "Consumenten (ligging)");
 
 
     //~    layerControl[3].addOverlay(L.geoJson(Installaties_puntBkl, {
@@ -494,7 +494,7 @@
       //filter: function(feature, layer) {return (eval(geojsonCQLFilterTest))},
       onEachFeature: tabularPopup2,
       pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { color: 'red', radius: feature.properties.totalRatedThermalInput / 1000 * 2, fillOpacity: 0.8 }).bindTooltip(String(feature.properties.nameOfFeature), { permanent: false, opacity: 0.9 }).openTooltip() },
-    }), "Grote StookInstallaties EU > 50 MW", "Consumenten");
+    }), "Grote StookInstallaties EU > 50 MW", "Consumenten (ligging)");
 
     //~    layerControl[2].addOverlay(L.geoJson(Windturbines, {
     //~ 		style: {  weight: 2 },
@@ -528,7 +528,7 @@
     // format dataType column:  'gpkg', 'geocsv', 'geojson','wfs', 'wms'
 
     // example
-    laagKenmerken[0] = { "laagBeschikbaarheid": "x", "legendeNaam": "AVI", "legendeGroep": "Consumenten", "subsoort": "bedrijven", "energiedragerNetten": "regios", "dataType": "varGeojson", "status": "balans", "urlOWS": "", "url": "", "laagNaam": "industrie", "cqlFilter": "color == 'yellow'", "popup": "feature.properties.Popup", "attributeMap": "", "fig": "circle", "legendaItems": "", "fillColor": "yellow", "color": "white", "eenheid": "", "weight": "1", "opacity": "", "fillOpacity": "0.3", "dash": "", "radius": "radius*2", "zoomMin": "", "zoomMax": "", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "" };
+    laagKenmerken[0] = { "laagBeschikbaarheid": "x", "legendeNaam": "AVI", "legendeGroep": "Consumenten (ligging)", "subsoort": "bedrijven", "energiedragerNetten": "regios", "dataType": "varGeojson", "status": "balans", "urlOWS": "", "url": "", "laagNaam": "industrie", "cqlFilter": "color == 'yellow'", "popup": "feature.properties.Popup", "attributeMap": "", "fig": "circle", "legendaItems": "", "fillColor": "yellow", "color": "white", "eenheid": "", "weight": "1", "opacity": "", "fillOpacity": "0.3", "dash": "", "radius": "radius*2", "zoomMin": "", "zoomMax": "", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "" };
     //    laagKenmerken[1] = {"laagBeschikbaarheid":"x","legendeNaam":"Subsidie AardWarmte","legendeGroep":"Producenten","subsoort":"Warmte","energiedragerNetten":"warmte","dataType":"wfs","status":"subsidieBeschikking","url":"https://rvo.tailormap.nl/geoserver/WarmteAtlas/wfs?","laagNaam":"SDE_warmte","cqlFilter":"SubSoort LIKE 'aardWarmte'","popup":"","attributeMap":"","fig":"circle","legendaItems":"","fillColor":"red","color":"red","eenheid":"","weight":"","opacity":"","fillOpacity":"0.5","dash":"","radius":"radius","zoomMin":"","zoomMax":"","jaarSlider":"","tableParams":"","attribution":"","metadata":"","bronNaam":"","bronActor":"","verantwoordelijkeActor":"","juridischeGrondslag":"","contactpersoon":"","":""};
     updateLayers(0);
     updateLegend();
