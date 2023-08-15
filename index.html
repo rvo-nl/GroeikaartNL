@@ -92,8 +92,8 @@
   <script src="./data/TerreingrenzenBkl.js"></script>
   <script src="./data/Windturbines.js"></script>
   <script src="./data/GemeenteEnergieInfo2019.js"></script>
-  <script src="./data/HS_Tennet.js"></script>
-<script src="./data/BuisleidingenRRGS.js"></script-->
+  <script src="./data/HS_Tennet.js"></script-->
+<!--script src="./data/leidingen.js"></script-->
   <script src="./data/LCP2020.js"></script>
 
   <!-- Includes ten behoeve van CES Sankey diagrammen -->
@@ -135,28 +135,54 @@
     }
 
     .grid-print-container {
-      // grid holder that holds all content (map and any other content)
+      /* grid holder that holds all content (map and any other content)*/
       grid-template: auto 1fr auto / 1fr;
       background-color: orange;
     }
 
     .grid-map-print {
-      // map container itself
+      /* map container itself*/
       grid-row: 2;
     }
 
     .title {
-      // Dynamic title styling
+      /* Dynamic title styling*/
       grid-row: 1;
       justify-self: center;
       color: white;
     }
 
     .sub-content {
-      // Dynamic sub content styling
+      /* Dynamic sub content styling */
       grid-row: 5;
       padding-left: 10px;
     }
+
+    
+    .popupTable { 
+      width: 360px; 
+      border-collapse: collapse; 
+      margin:10px auto;
+      }
+
+    /* Zebra striping */
+    .popupTable tr:nth-of-type(odd) { 
+      background: #eee; 
+      }
+
+    .popupTable th { 
+      background: #3498db; 
+      color: white; 
+      font-weight: bold; 
+      }
+
+    .popupTable td, th { 
+      padding: 10px; 
+      border: 1px solid #ccc; 
+      text-align: left; 
+      font-size: 12px;
+      }
+    .leaflet-popup { min-width: 450px;}
   </style>
 
 </head>
@@ -265,7 +291,7 @@
       return o1;
     };
     var WFSparams = 'service=WFS&request=GetFeature&outputFormat=application/json&srsName=EPSG:4326&typeName=';
-    var WindOpZeeKaartWFS = "https://geoservices.rijkswaterstaat.nl/apps/geoserver/windenergiegebieden/ows?";
+    //var WindOpZeeKaartWFS = "https://geoservices.rijkswaterstaat.nl/apps/geoserver/windenergiegebieden/ows?";
 
 
     //define special icons
@@ -418,7 +444,7 @@
 
     //check https://rvo.tailormap.nl/geoserver/WarmteAtlas/wfs?service=WFS&request=GetFeature&outputFormat=application/json&srsName=EPSG:4326&typeName=SDE_warmte
 
-    var CESclusters = L.layerGroup().addTo(map);//var ClusterRotterdamMoerdijk = L.ellipse({center:[51.91502, 4.214638],semiMinor:20000, semiMajor:5000, tilt:20, color: "green"}).bindPopup("sankey bij klik").bindTooltip("Cluster Rotterdam-Moerdijk").addTo(CESclusters);
+    var CESclusters = L.layerGroup();//var ClusterRotterdamMoerdijk = L.ellipse({center:[51.91502, 4.214638],semiMinor:20000, semiMajor:5000, tilt:20, color: "green"}).bindPopup("sankey bij klik").bindTooltip("Cluster Rotterdam-Moerdijk").addTo(CESclusters);
     // var ClusterRotterdamMoerdijk = L.ellipse([51.91502, 4.214638], [20000, 5000], 20).bindPopup("sankey bij klik").bindTooltip("Cluster Rotterdam-Moerdijk").addTo(CESclusters);
 
     var ClusterRotterdamMoerdijk = L.ellipse([51.91502, 4.214638], [20000, 5000], 20).on('click', function () { tekenCESDiagrammen({ datapath: 'https://raw.githubusercontent.com/rvo-nl/GroeikaartNL/main/data/CES_dummydata.csv', targetDiv: 'fullpagePopup', clusterSelectie: 'Rotterdam' }) }).bindTooltip("Cluster Rotterdam-Moerdijk").addTo(CESclusters);
@@ -439,10 +465,10 @@
 
     //examples
     //cluster
-    layerControl[3].addOverlay(CESclusters, 'CES clusters', 'Clusters Energie-, en CO2 balans');//popup bij klik
+    layerControl[3].addOverlay(CESclusters, 'CES clusters', 'RegioClusters: Energie en CO2 balans');//popup bij klik
 
-    layerControl[0].addOverlay(L.geoJson.ajax("https://geo.rijkswaterstaat.nl/services/ogc/gdr/kaderrichtlijn_water/ows?" + WFSparams + 'KRW_oppervlaktewaterlichamen_vlak', { style: { fillColor: 'blue', fillOpacity: 0.2, color: 'blue', weight: 1 } }, { attribution: '&copy; <a href="https://geo.rijkswaterstaat.nl/services/ogc/gdr/web/wicket/bookmarkable/org.geoserver.web.demo.MapPreviewPage?1">RWS</a> contributors', minZoom: 10, maxZoom: 20 }), 'Water', 'Transport');
-
+   // layerControl[0].addOverlay(L.geoJson.ajax("https://geo.rijkswaterstaat.nl/services/ogc/gdr/kaderrichtlijn_water/wfs?" + WFSparams + 'kaderrichtlijn_water:KRW_oppervlaktewaterlichamen_vlak', { style: { fillColor: 'blue', fillOpacity: 0.2, color: 'blue', weight: 1 } }, { attribution: '&copy; <a href="https://geo.rijkswaterstaat.nl/services/ogc/gdr/web/wicket/bookmarkable/org.geoserver.web.demo.MapPreviewPage?1">RWS</a> contributors', minZoom: 10, maxZoom: 20 }), 'oppervlakte water', 'Transport over water');
+   
     //Add some default example layers with configuration syntax
     //	var defaultOptions = {transparent: true, format: 'image/png', crs: L.CRS.EPSG4326 , attribution: '&copy; RijksOverheid', minZoom: 6, maxZoom: 18, opacity: 0.7, tolerance:100};
     var defaultOptions = { transparent: true, format: 'image/png', crs: L.CRS.EPSG4326, attribution: '&copy; RijksOverheid', minZoom: 6, maxZoom: 18, opacity: 0.7, weight: 2, fillOpacity: 0.9 };
@@ -513,6 +539,14 @@
     // }), "Aardgas", "Netten");
 
     //test
+
+/*     layerControl[0].addOverlay(L.geoJson(buisleidingen, {
+      style: { weight: 2 },
+      //  filter: function(feature, layer) {return (feature.properties.color == "yellow") ;},
+      //filter: function(feature, layer) {return (eval(geojsonCQLFilterTest))},//werkt
+    //  onEachFeature: tabularPopup2,
+     // pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { color: feature.properties.color, radius: (feature.properties.radius * 2), fillOpacity: 0.8 }) },
+    }).bindTooltip(function (layer) { return String(layer.feature.properties.buisleidingproduct) }), "Buisleidingen ", "Netten Gassen/Vloeistoffen"); */
     geojsonLayer = L.geoJson();
 
 
@@ -528,19 +562,19 @@
     // format dataType column:  'gpkg', 'geocsv', 'geojson','wfs', 'wms'
 
     // example
-    laagKenmerken[0] = { "laagBeschikbaarheid": "x", "legendeNaam": "AVI", "legendeGroep": "Consumenten (ligging)", "subsoort": "bedrijven", "energiedragerNetten": "regios", "dataType": "varGeojson", "status": "balans", "urlOWS": "", "url": "", "laagNaam": "industrie", "cqlFilter": "color == 'yellow'", "popup": "feature.properties.Popup", "attributeMap": "", "fig": "circle", "legendaItems": "", "fillColor": "yellow", "color": "white", "eenheid": "", "weight": "1", "opacity": "", "fillOpacity": "0.3", "dash": "", "radius": "radius*2", "zoomMin": "", "zoomMax": "", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "" };
-    //    laagKenmerken[1] = {"laagBeschikbaarheid":"x","legendeNaam":"Subsidie AardWarmte","legendeGroep":"Producenten","subsoort":"Warmte","energiedragerNetten":"warmte","dataType":"wfs","status":"subsidieBeschikking","url":"https://rvo.tailormap.nl/geoserver/WarmteAtlas/wfs?","laagNaam":"SDE_warmte","cqlFilter":"SubSoort LIKE 'aardWarmte'","popup":"","attributeMap":"","fig":"circle","legendaItems":"","fillColor":"red","color":"red","eenheid":"","weight":"","opacity":"","fillOpacity":"0.5","dash":"","radius":"radius","zoomMin":"","zoomMax":"","jaarSlider":"","tableParams":"","attribution":"","metadata":"","bronNaam":"","bronActor":"","verantwoordelijkeActor":"","juridischeGrondslag":"","contactpersoon":"","":""};
+    laagKenmerken[0] = { "laagBeschikbaarheid": "x", "legendeNaam": "AfvalCentrales", "legendeGroep": "Consumenten (ligging)", "subsoort": "bedrijven", "energiedragerNetten": "regios", "dataType": "varGeojson", "status": "balans", "urlOWS": "", "url": "", "laagNaam": "industrie", "cqlFilter": "color == 'yellow'", "popup": "feature.properties.Popup", "attributeMap": "", "fig": "circle", "legendaItems": "", "fillColor": "yellow", "color": "white", "eenheid": "", "weight": "1", "opacity": "", "fillOpacity": "0.3", "dash": "", "radius": "radius*2", "zoomMin": "", "zoomMax": "", "jaarSlider": "", "tableParams": "", "attribution": "", "metadata": "", "bronNaam": "", "bronActor": "", "verantwoordelijkeActor": "", "juridischeGrondslag": "", "contactpersoon": "" };
+    //    laagKenmerken[1] = {"laagBeschikbaarheid":"x","legendeNaam":"Subsidie AardWarmte","legendeGroep":"Producenten","subsoort":"Warmte","energiedragerNetten":"warmte","dataType":"wfs","status":"subsidieBeschikking","url":"https://www.warmteatlas.nl/geoserver/WarmteAtlas/wfs?","laagNaam":"SDE_warmte","cqlFilter":"SubSoort LIKE 'aardWarmte'","popup":"","attributeMap":"","fig":"circle","legendaItems":"","fillColor":"red","color":"red","eenheid":"","weight":"","opacity":"","fillOpacity":"0.5","dash":"","radius":"radius","zoomMin":"","zoomMax":"","jaarSlider":"","tableParams":"","attribution":"","metadata":"","bronNaam":"","bronActor":"","verantwoordelijkeActor":"","juridischeGrondslag":"","contactpersoon":"","":""};
     updateLayers(0);
     updateLegend();
 
-    Papa.parse('data/Kaartlagen.csv', {
+/*     Papa.parse('https://raw.githubusercontent.com/rvo-nl/GroeikaartNL/main/data/Kaartlagen.csv', {
       header: true,
       //before: function ('data/Kaartlagen.csv', inputElem) { console.log('Attempting to Parse...') },
       //error: function (err, 'data/Kaartlagen.csv', inputElem, reason) { console.log(err); },
       download: true,
       //dynamicTyping: true,
       complete: function (results) {
-        // console.log(results);
+         console.log('import kaartlagen.csv' + JSON.stringify(results.data));
         var start = laagKenmerken.length;
         laagKenmerken = laagKenmerken.concat(results.data);
         console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
@@ -550,6 +584,24 @@
         updateLayers(start);//only layers from import are updated
         updateLegend();
       }
+    }); */
+
+    let urlLayers = "https://script.google.com/macros/s/AKfycbzmH9b593msGknWCXWT6zLPlbLvbmp6ygS_hjIHkhVjM6TPGpnl4jNdks7f3C4NfkXBkw/exec?sheet=layers";
+    fetch(urlLayers)
+    .then((response) => {return response.json();})
+    .then((data) => {
+      //console.log(JSON.stringify(data.sheetData));
+      let mapLayers = data.sheetData;
+      //console.log(Object.values(mapLayers));
+      var start = laagKenmerken.length;
+        laagKenmerken = laagKenmerken.concat(mapLayers);
+        console.log($(jQuery.parseJSON(JSON.stringify(laagKenmerken))).each(function () {
+          return this.laagNaam;
+        }));
+        // console.table(laagKenmerken);
+        updateLayers(start);//only layers from import are updated
+        updateLegend();
+
     });
 
     function updateLayers(additional) {
@@ -607,7 +659,7 @@
                 ),
                 legendeNaam, legendeGroep);
               break;
-            case 'geojson':
+            case 'geojsonUrl':
               layerControl[Edrager].addOverlay(
                 L.geoJson.ajax(
                   laagKenmerken[l].url, {
@@ -637,6 +689,19 @@
                 //             else {geojsonLayer.addData(droppedLayerContainer[g].fileString);geojsonLayer.addTo(map);}
               };
               break;
+              case 'GeoJson':
+                console.log('laagNaam => ' + laagKenmerken[l].laagNaam);
+                  layerControl[Edrager].addOverlay(
+                    L.geoJson(
+                      eval(laagKenmerken[l].laagNaam), {
+                      style: function (feature, layer) { return (jsonAdd({ weight: eval(weightLayer) }, jsonAdd(extractVectorStyleOptions(laagKenmerken[l]), defaultOptions))) },
+                      filter: function (feature, layer) { return (eval(filterGeoJson(laagKenmerken[l].cqlFilter))) },
+                      onEachFeature: tabularPopup2,
+                      pointToLayer: function (feature, latlng) { return L.circleMarker(latlng, { stroke: false, radius: eval(radiusLayer) }) },
+                    }
+                    ),
+                    legendeNaam, legendeGroep);
+              break;  
             case 'gpkg':
               layerControl[Edrager].addOverlay(
                 L.geoPackageFeatureLayer([], {
