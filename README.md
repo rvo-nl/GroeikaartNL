@@ -1,29 +1,25 @@
 # GroeikaartNL
 Energie [GroeikaartNL](https://rvo-nl.github.io/GroeikaartNL) van Nederland met strategische plannen, vergunningen en geplande realisaties van duurzame energieprojecten en energie infrastructuur.
 
-## A leaflet viewer that is filled with user defined external data layers by drag and drop.
-It reads all layers from a .csv file or an .xslx file. Which is dragged and dropped by the user. 
-It can read layers from WFS serices, WMS services, geojson, dropped geojson. 
-In every row of the dropped file the user defines s the titel of the layer, the group of the layer, the filter, the colors, the line thickness etc.
-
-
-Format of the layer xlsx file or a .csv file with pipe (|) separation:
+## De leaflet viewer wordt gevuld middels een sheet met laag beschrijvingen.
+Alle lagen worden gelezen uit een file met meta data (.csv file with pipe delimiter, een .xslx file of een google sheets bestand). Deze kan met drag en drop in de viewer geschoven worden.
+Elke regel in de sheet bevat informatie over een laag uit een WFS service, WMS service of geojson met de url, laagnaam, gewenste titel, de groeps indeling, de filter, de kleur, de lijn of punt dikte etc.
 
 | laagBeschikbaarheid |	legendeNaam |	legendeGroep |	energiedragerNetten	| dataType |	url |	laagNaam |	cqlFilter |	popup	| fig	| fillColor |	color	| weight	| opacity |	fillOpacity	| dash	| radius |	zoomMin	| zoomMax| 
 | --- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|x|title|groupname| themename |wms, wfs,geojson| url of WFS service or WMS service or name of dropped geojson| layername | filter| popupfiledname |figure for legend (circle, rect, line)| fillcolor | linecolor | thickness of line | opacity of line |	fillOpacity of polygon	| dash of line	| radius of points |	view zoom minimum	| view zoom maximum | 
+|x|tiel|groepnaam| themanaam |wms, wfs,geojson| url van WFS service, WMS service of de naam van een dropped geojson| laagnaam | filter| popup attribuut naam |figuurkeuze voor de legende (circle, rect, line)| fillcolor | linecolor | thickness of line | opacity of line |	fillOpacity of polygon	| dash of line	| radius of points |	view zoom minimum	| view zoom maximum | 
 |required | required | required | required | required | required | required | optional | optional | required | required | required | optional | optional | optional | optional | optional | optional | optional | 
 
-see "Kaartlagen.csv" as example.
+zie "Kaartlagen.csv" als voorbeeld
 
+## De leaflet viewer kan ook een data sheet importeren. 
+Het formaat van de te importeren data-sheet is:
+.xslx of .csv file met pipe (|) delimiter met minimum onderstaande kolommen:
 
-## A leafet viewer where the user can input its own data file (.csv or .xslx) with wkt field, to search, filter and timeslide through its data.
-
-Format with required field of the data xlsx file or a .csv file with pipe (|) separation:
 | naam | wkt | InstallatieJaar | color |
 |--- |--- |--- |--- |
-| title of popup hover | [wkt geometry](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) | Year (2020-2050) for slicer | color |
+| titel voor de popup hover | [wkt geometry](https://en.wikipedia.org/wiki/Well-known_text_representation_of_geometry) | Jaartal (2020-2050) voor de slicer | kleur |
 
-User can add additional fields which are shown in the popup.
+Extra kolommen met informatie kunnen toegevoegd worden en worden zichtbaar met muis klik.
 
-see "TransitieVisieWarmte.xslx" as example.
+zie "TransitieVisieWarmte.xslx" als voorbeeld.
