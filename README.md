@@ -7,7 +7,7 @@ Elke regel in de sheet bevat informatie over een laag uit een WFS service, WMS s
 
 | laagBeschikbaarheid |	legendeNaam |	legendeGroep |	energiedragerNetten	| dataType |	url |	laagNaam |	cqlFilter |	popup	| fig	| fillColor |	color	| weight	| opacity |	fillOpacity	| dash	| radius |	zoomMin	| zoomMax| 
 | --- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|x|tiel|groepnaam| themanaam |wms, wfs,geojson| url van WFS service, WMS service of de naam van een dropped geojson| laagnaam | filter| popup attribuut naam |figuurkeuze voor de legende (circle, rect, line)| fillcolor | linecolor | thickness of line | opacity of line |	fillOpacity of polygon	| dash of line	| radius of points |	view zoom minimum	| view zoom maximum | 
+|x|titel|groepnaam| themanaam |wms, wfs,geojson| url van WFS service, WMS service of de naam van een dropped geojson| laagnaam | filter| popup attribuut naam |figuurkeuze voor de legende (circle, rect, line)| fillcolor | linecolor | thickness of line | opacity of line |	fill Opacity of polygon	| dash of line	| radius of points |	view zoom minimum	| view zoom maximum | 
 |required | required | required | required | required | required | required | optional | optional | required | required | required | optional | optional | optional | optional | optional | optional | optional | 
 
 zie "Kaartlagen.csv" als voorbeeld
